@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 class CardCollectionViewCell: UICollectionViewCell {
     
@@ -6,18 +7,18 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageView: UIImageView? = {
         let img = UIImageView()
-        img.translatesAutoresizingMaskIntoConstraints = false
         img.layer.cornerRadius = 10
-        img.frame = CGRect(x: 0, y: 0, width: 140, height: 140)
+        img.layer.masksToBounds = true
+     
         return img
     }()
     
     private lazy var nameLabel: UILabel? = {
         let lbl = UILabel()
-        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .white
-        lbl.frame = CGRect(x: 0, y: 0, width: 99, height: 22)
         lbl.font = .boldSystemFont(ofSize: 17)
+        lbl.textAlignment = .center
+        lbl.numberOfLines = 2
         return lbl
     }()
     
@@ -25,7 +26,7 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupUI()
         setupConstraints()
     }
     
@@ -35,7 +36,9 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Methods
     
-    private func setupView() {
+    private func setupUI() {
+        contentView.layer.cornerRadius = 16
+        contentView.layer.masksToBounds = true
         contentView.backgroundColor = UIColor(named: Constants.Colors.cardColor)
         contentView.addSubview(imageView ?? UIImageView(image: .checkmark))
         contentView.addSubview(nameLabel ?? UILabel())
@@ -44,24 +47,22 @@ class CardCollectionViewCell: UICollectionViewCell {
     private func setupConstraints() {
         guard let imageView, let nameLabel else { return }
         
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 140)
-        ])
-        
-        NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            nameLabel.heightAnchor.constraint(equalToConstant: 22),
-            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+        imageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(contentView.frame.height * 0.05)
+            make.trailing.equalToSuperview().inset(contentView.frame.height * 0.05)
+            make.leading.equalToSuperview().offset(contentView.frame.width * 0.05)
+            make.bottom.equalToSuperview().inset(contentView.frame.height * 0.26)
+        }
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(contentView.frame.height * 0.81)
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview().inset(contentView.frame.height * 0.07)
+        }
     }
     
     func fill(with image: UIImage?, name: String?) {
         imageView?.image = image
         nameLabel?.text = name
-        }
+    }
 }

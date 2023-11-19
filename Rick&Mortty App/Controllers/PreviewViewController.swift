@@ -17,7 +17,9 @@ class PreviewViewController: UIViewController {
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 156, height: 202)
+        layout.itemSize = CGSize(width: view.frame.width * 0.42, height: view.frame.height * 0.25)
+
+        layout.sectionInset = UIEdgeInsets(top: view.frame.height * 0.02, left: view.frame.width * 0.05, bottom: view.frame.height * 0.02, right: view.frame.width * 0.07)
         layout.scrollDirection = .vertical
         return layout
     }()
@@ -87,12 +89,12 @@ class PreviewViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            cvCharacter.topAnchor.constraint(equalTo:view.topAnchor, constant: 0),
-            cvCharacter.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            cvCharacter.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            cvCharacter.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
-        ])
+        cvCharacter.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
