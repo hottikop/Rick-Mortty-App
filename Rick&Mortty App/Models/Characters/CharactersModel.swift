@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 struct CharactersModel: Decodable {
     var info: Info

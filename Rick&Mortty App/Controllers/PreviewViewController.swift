@@ -94,6 +94,10 @@ class PreviewViewController: UIViewController {
             cvCharacter.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        false
+    }
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -111,11 +115,11 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CardCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
-        
         let results = characters[indexPath.item / 20].results
-        let image = loadImage(indexPath: indexPath)
         
-        cell.fill(with: image, name: results[indexPath.item % 20].name)
+        loadImage(indexPath: indexPath) { image in
+            cell.fill(with: image, name: results[indexPath.item % 20].name)
+        }
         return cell
     }
 
