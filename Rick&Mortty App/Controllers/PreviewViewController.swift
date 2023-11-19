@@ -8,7 +8,9 @@
 import UIKit
 
 class PreviewViewController: UIViewController {
+    
     //MARK: - Properties
+    
     private var characters: [CharactersModel] = []
     private var currentPage = 0
     private var isLoading = false
@@ -31,6 +33,7 @@ class PreviewViewController: UIViewController {
     
     
     //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
@@ -52,7 +55,7 @@ class PreviewViewController: UIViewController {
 
         currentPage += 1
 
-        let queryItems = [URLQueryItem(name: Constants.page, value: String(currentPage))]
+        let queryItems = [URLQueryItem(name: Constants.Network.page, value: String(currentPage))]
 
         NetworkDataFetch.shared.fetchData(queryItems: queryItems, responseType: CharactersModel.self) { [weak self] character, _ in
             guard let character else { return }
@@ -64,7 +67,7 @@ class PreviewViewController: UIViewController {
     
     private func loadImage(indexPath: IndexPath, completion: @escaping (UIImage) -> Void) {
         let id = characters[indexPath.row / 20].results[indexPath.row % 20].id
-        let path = Constants.imagePath + String(id) + ".jpeg"
+        let path = Constants.Network.imagePath + String(id) + ".jpeg"
         
         NetworkDataFetch.shared.fetchImage(path: path) { newImage, _ in
             let image = newImage ?? UIImage()
@@ -94,6 +97,7 @@ class PreviewViewController: UIViewController {
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
 extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
@@ -109,9 +113,9 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         
         let results = characters[indexPath.item / 20].results
-        loadImage(indexPath: indexPath) { image in
-            cell.fill(with: image, name: results[indexPath.item % 20].name)
-        }
+        let image = loadImage(indexPath: indexPath)
+        
+        cell.fill(with: image, name: results[indexPath.item % 20].name)
         return cell
     }
 

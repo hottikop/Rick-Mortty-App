@@ -1,7 +1,9 @@
 import UIKit
 
 class CardCollectionViewCell: UICollectionViewCell {
+    
     //MARK: - Properties
+    
     private lazy var imageView: UIImageView? = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
@@ -20,6 +22,7 @@ class CardCollectionViewCell: UICollectionViewCell {
     }()
     
     //MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -31,8 +34,9 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Methods
+    
     private func setupView() {
-        contentView.backgroundColor = UIColor(named: "cardColor")
+        contentView.backgroundColor = UIColor(named: Constants.Colors.cardColor)
         contentView.addSubview(imageView ?? UIImageView(image: .checkmark))
         contentView.addSubview(nameLabel ?? UILabel())
     }
@@ -60,5 +64,4 @@ class CardCollectionViewCell: UICollectionViewCell {
         imageView?.image = image
         nameLabel?.text = name
         }
-
 }

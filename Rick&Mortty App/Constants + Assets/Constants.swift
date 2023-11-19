@@ -8,11 +8,13 @@
 import Foundation
 
 struct Constants {
-    static let scheme = "https"
-    static let host = "rickandmortyapi.com"
-    static let path = "/api/character"
-    static let imagePath = "/api/character/avatar/"
-    static let page = "page"
+    struct Network {
+        static let scheme = "https"
+        static let host = "rickandmortyapi.com"
+        static let path = "/api/character"
+        static let imagePath = "/api/character/avatar/"
+        static let page = "page"
+    }
     
     struct Colors {
         static let cardColor = "cardColor"
@@ -23,4 +25,9 @@ struct Constants {
         static let somethigWrong = "somethigWrong"
         static let previewTitle = "Characters"
     }
+    
+    struct Values {
+        static let charactersCount = 20
+    }
 }
+

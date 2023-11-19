@@ -8,12 +8,12 @@
 import Foundation
 
 struct Endpoint {
-    var scheme: String = Constants.scheme
-    var host: String = Constants.host
-    var path: String = Constants.path
+    var scheme: String = Constants.Network.scheme
+    var host: String = Constants.Network.host
+    var path: String = Constants.Network.path
     var queryItems: [URLQueryItem]
 
-    init(path: String = Constants.path, queryItems: [URLQueryItem] = []) {
+    init(path: String = Constants.Network.path, queryItems: [URLQueryItem] = []) {
         self.path = path
         self.queryItems = queryItems
     }

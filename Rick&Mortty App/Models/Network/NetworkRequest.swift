@@ -12,7 +12,7 @@ class NetworkRequest {
     
     private init() {}
     
-    func getData(path: String = Constants.path, queryItems: [URLQueryItem] = [],
+    func getData(path: String = Constants.Network.path, queryItems: [URLQueryItem] = [],
                  completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {
         DispatchQueue.global().async {
             let endpoint = Endpoint(path: path, queryItems: queryItems)

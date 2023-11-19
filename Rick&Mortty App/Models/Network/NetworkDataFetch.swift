@@ -12,7 +12,7 @@ class NetworkDataFetch {
     
     private init() {}
     
-    func fetchData<T: Decodable>(path: String = Constants.path, queryItems: [URLQueryItem] = [],
+    func fetchData<T: Decodable>(path: String = Constants.Network.path, queryItems: [URLQueryItem] = [],
                                  responseType: T.Type,
                                  response: @escaping (T?, NetworkError?) -> Void) {
         
@@ -44,7 +44,7 @@ class NetworkDataFetch {
         }
     }
     
-    func fetchImage(path: String = Constants.imagePath, completion: @escaping (UIImage?, NetworkError?) -> Void) {
+    func fetchImage(path: String = Constants.Network.imagePath, completion: @escaping (UIImage?, NetworkError?) -> Void) {
         NetworkRequest.shared.getData(path: path) { result in
             switch result {
             case .success(let data):
