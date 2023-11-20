@@ -67,11 +67,11 @@ final class CharacterTableViewCell: UITableViewCell {
         }
         
         lblName.snp.makeConstraints {
-            $0.top.equalTo(vImage.snp_bottomMargin).inset(-24)
+            $0.top.equalTo(vImage.snp.bottom).inset(-24)
             $0.centerX.equalToSuperview()
         }
         lblStatus.snp.makeConstraints {
-            $0.top.equalTo(lblName.snp_bottomMargin).offset(8)
+            $0.top.equalTo(lblName.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview()
         }

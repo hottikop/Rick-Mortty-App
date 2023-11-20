@@ -20,6 +20,7 @@ final class InfoViewController: UIViewController {
         tbl.delegate = self
         tbl.dataSource = self
         tbl.register(CharacterTableViewCell.self)
+        tbl.register(InfoTableViewCell.self)
         return tbl
     }()
     
@@ -27,8 +28,8 @@ final class InfoViewController: UIViewController {
     
     init(_ results: Results) {
         self.results = results
-       
-
+        
+        
         super.init(nibName: nil, bundle: nil)
         self.loadImage { newImage in
             self.image = newImage
@@ -120,6 +121,19 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.fill(image: image, name: name, status: status)
             
             return cell
+        case 1:
+            let cell: InfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            let species = results?.species
+            var type = results?.type
+            if ((type?.isEmpty) != nil) {
+                type = "None"
+            }
+            let gender = results?.gender
+            
+            cell.fill(species: species, type: type ?? "None", gender: gender)
+            return cell
+            
         default:
             let cell = UITableViewCell()
             return cell
@@ -138,5 +152,11 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
     }
-
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = .white
+        }
+    }
+    
 }

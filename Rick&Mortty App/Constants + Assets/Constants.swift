@@ -20,6 +20,7 @@ struct Constants {
         static let cardColor = "cardColor"
         static let screenColor = "screenColor"
         static let greenText = "greenTextColor"
+        static let greyNormalText = "greyNormalTextColor"
     }
     
     struct Strings {
