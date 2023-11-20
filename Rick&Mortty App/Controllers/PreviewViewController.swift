@@ -5,26 +5,31 @@
 //  Created by Максим Целигоров on 17.08.2023.
 //
 
+protocol PreviewViewControllerDelegate: AnyObject {
+    func previewViewController(_ vc: PreviewViewController, willShow characterInfo: Results)
+}
+
 import UIKit
 
-class PreviewViewController: UIViewController {
+final class PreviewViewController: UIViewController {
     
     //MARK: - Properties
     
+    weak var delegate: PreviewViewControllerDelegate?
     private var characters: [CharactersModel] = []
     private var currentPage = 0
     private var isLoading = false
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.width * 0.42, height: view.frame.height * 0.25)
+        layout.itemSize = CGSize(width: view.frame.width * 0.42, height: view.frame.width * 0.53)
 
         layout.sectionInset = UIEdgeInsets(top: view.frame.height * 0.02, left: view.frame.width * 0.05, bottom: view.frame.height * 0.02, right: view.frame.width * 0.07)
         layout.scrollDirection = .vertical
         return layout
     }()
     
-    private lazy var cvCharacter: UICollectionView = {
+    private lazy var cvCharacterList: UICollectionView = {
         let cv = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         cv.register(CardCollectionViewCell.self)
         cv.backgroundColor = UIColor(named: Constants.Colors.screenColor)
@@ -46,7 +51,7 @@ class PreviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavBar()
-        cvCharacter.reloadData()
+        cvCharacterList.reloadData()
     }
     
     //MARK: - Methods
@@ -62,7 +67,7 @@ class PreviewViewController: UIViewController {
         NetworkDataFetch.shared.fetchData(queryItems: queryItems, responseType: CharactersModel.self) { [weak self] character, _ in
             guard let character else { return }
             self?.characters.append(character)
-            self?.cvCharacter.reloadData()
+            self?.cvCharacterList.reloadData()
             self?.isLoading = false
         }
     }
@@ -85,22 +90,16 @@ class PreviewViewController: UIViewController {
     
     private func setupUI() {
         title = Constants.Strings.previewTitle
-        view.addSubview(cvCharacter)
+        view.addSubview(cvCharacterList)
     }
     
     private func setupConstraints() {
-        cvCharacter.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+        cvCharacterList.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        false
-    }
 }
+
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
@@ -133,5 +132,17 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard !isLoading && indexPath.item == lastItem else { return }
         
         loadData()
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let result = characters[indexPath.item / 20].results[indexPath.item % 20]
+        
+        let vc = InfoViewController(result)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

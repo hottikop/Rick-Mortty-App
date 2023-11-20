@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class CardCollectionViewCell: UICollectionViewCell {
+final class CardCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Properties
     
@@ -9,7 +9,6 @@ class CardCollectionViewCell: UICollectionViewCell {
         let img = UIImageView()
         img.layer.cornerRadius = 10
         img.layer.masksToBounds = true
-     
         return img
     }()
     
@@ -18,7 +17,6 @@ class CardCollectionViewCell: UICollectionViewCell {
         lbl.textColor = .white
         lbl.font = .boldSystemFont(ofSize: 17)
         lbl.textAlignment = .center
-        lbl.numberOfLines = 2
         return lbl
     }()
     

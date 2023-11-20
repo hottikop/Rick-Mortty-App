@@ -14,6 +14,8 @@
 		5008943F2B04AD9200EA91D9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5008943E2B04AD9200EA91D9 /* Constants.swift */; };
 		500894412B04AEF200EA91D9 /* URLSession + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500894402B04AEF200EA91D9 /* URLSession + Extension.swift */; };
 		506E213C2B04C18E002F3EB5 /* Rick and Morty.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506E213B2B04C18E002F3EB5 /* Rick and Morty.xcassets */; };
+		507E5A5A2B0B45110058CF2C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E5A592B0B45110058CF2C /* InfoViewController.swift */; };
+		507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */; };
 		5084AA8A2B0949F0001E090A /* UITableViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA892B0949F0001E090A /* UITableViewCell + Extension.swift */; };
 		5084AA8C2B094A13001E090A /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8B2B094A13001E090A /* UITableView + Extension.swift */; };
 		5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */; };
@@ -37,6 +39,8 @@
 		5008943E2B04AD9200EA91D9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		500894402B04AEF200EA91D9 /* URLSession + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Extension.swift"; sourceTree = "<group>"; };
 		506E213B2B04C18E002F3EB5 /* Rick and Morty.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Rick and Morty.xcassets"; sourceTree = "<group>"; };
+		507E5A592B0B45110058CF2C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		5084AA892B0949F0001E090A /* UITableViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8B2B094A13001E090A /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Extension.swift"; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				50DF382C2A8DF3950046F019 /* PreviewViewController.swift */,
+				507E5A592B0B45110058CF2C /* InfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				50F581E42A90C6A00047D6F1 /* CardCollectionViewCell.swift */,
+				507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,8 +316,10 @@
 				500894352B04AC2000EA91D9 /* NetworkRequest.swift in Sources */,
 				500894392B04AC6800EA91D9 /* NetworkError.swift in Sources */,
 				5084AA8C2B094A13001E090A /* UITableView + Extension.swift in Sources */,
+				507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */,
 				5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */,
 				50F581E52A90C6A00047D6F1 /* CardCollectionViewCell.swift in Sources */,
+				507E5A5A2B0B45110058CF2C /* InfoViewController.swift in Sources */,
 				5084AA902B094A63001E090A /* UICollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
