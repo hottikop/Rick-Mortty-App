@@ -21,11 +21,16 @@ struct Constants {
         static let screenColor = "screenColor"
         static let greenText = "greenTextColor"
         static let greyNormalText = "greyNormalTextColor"
+        static let blackElementsColor = "blackElementsColor"
     }
     
     struct Strings {
         static let somethigWrong = "somethigWrong"
         static let previewTitle = "Characters"
+    }
+   
+    struct Images {
+        static let planetImage = "planetImage"
     }
     
     struct Values {

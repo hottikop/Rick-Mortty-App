@@ -21,6 +21,7 @@
 		5084AA8C2B094A13001E090A /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8B2B094A13001E090A /* UITableView + Extension.swift */; };
 		5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */; };
 		5084AA902B094A63001E090A /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8F2B094A63001E090A /* UICollectionView.swift */; };
+		50B2902B2B0BF10700BD11E3 /* OriginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2902A2B0BF10700BD11E3 /* OriginTableViewCell.swift */; };
 		50DF38292A8DF3950046F019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF38282A8DF3950046F019 /* AppDelegate.swift */; };
 		50DF382B2A8DF3950046F019 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF382A2A8DF3950046F019 /* SceneDelegate.swift */; };
 		50DF382D2A8DF3950046F019 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF382C2A8DF3950046F019 /* PreviewViewController.swift */; };
@@ -47,6 +48,7 @@
 		5084AA8B2B094A13001E090A /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8F2B094A63001E090A /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		50B2902A2B0BF10700BD11E3 /* OriginTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginTableViewCell.swift; sourceTree = "<group>"; };
 		50DF38252A8DF3950046F019 /* Rick&Mortty App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rick&Mortty App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50DF38282A8DF3950046F019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50DF382A2A8DF3950046F019 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				50F581E42A90C6A00047D6F1 /* CardCollectionViewCell.swift */,
 				507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */,
 				503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */,
+				50B2902A2B0BF10700BD11E3 /* OriginTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				500894352B04AC2000EA91D9 /* NetworkRequest.swift in Sources */,
 				500894392B04AC6800EA91D9 /* NetworkError.swift in Sources */,
 				5084AA8C2B094A13001E090A /* UITableView + Extension.swift in Sources */,
+				50B2902B2B0BF10700BD11E3 /* OriginTableViewCell.swift in Sources */,
 				507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */,
 				5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */,
 				50F581E52A90C6A00047D6F1 /* CardCollectionViewCell.swift in Sources */,

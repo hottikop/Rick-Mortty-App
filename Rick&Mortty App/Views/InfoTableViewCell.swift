@@ -13,11 +13,12 @@ final class InfoTableViewCell: UITableViewCell {
     //MARK: - Properties
     
     private lazy var vInner: UIView = {
-        let v = UIView()
-        v.layer.masksToBounds = true
-        v.layer.cornerRadius = 16
-        v.backgroundColor = UIColor(named: Constants.Colors.cardColor)
-        return v
+        let view = UIView()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 16
+        view.backgroundColor = UIColor(named: Constants.Colors.cardColor)
+        
+        return view
     }()
     
     private lazy var lblSpecies: UILabel = {
@@ -104,7 +105,7 @@ final class InfoTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         vInner.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(8)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview()
         }
@@ -138,7 +139,7 @@ final class InfoTableViewCell: UITableViewCell {
         lblGenderValue.snp.makeConstraints {
             $0.top.equalTo(lblTypeValue.snp.bottom).inset(-16)
             $0.trailing.equalTo(vInner.snp.trailing).offset(-16)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.bottom.equalTo(vInner).inset(16)
         }
     }
     

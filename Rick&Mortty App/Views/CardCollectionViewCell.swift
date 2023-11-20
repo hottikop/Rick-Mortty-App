@@ -5,14 +5,14 @@ final class CardCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Properties
     
-    private lazy var imageView: UIImageView? = {
+    private lazy var vImage: UIImageView? = {
         let img = UIImageView()
         img.layer.cornerRadius = 10
         img.layer.masksToBounds = true
         return img
     }()
     
-    private lazy var nameLabel: UILabel? = {
+    private lazy var lblName: UILabel? = {
         let lbl = UILabel()
         lbl.textColor = .white
         lbl.font = .boldSystemFont(ofSize: 17)
@@ -38,20 +38,20 @@ final class CardCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 16
         contentView.layer.masksToBounds = true
         contentView.backgroundColor = UIColor(named: Constants.Colors.cardColor)
-        contentView.addSubview(imageView ?? UIImageView(image: .checkmark))
-        contentView.addSubview(nameLabel ?? UILabel())
+        contentView.addSubview(vImage ?? UIImageView(image: .checkmark))
+        contentView.addSubview(lblName ?? UILabel())
     }
     
     private func setupConstraints() {
-        guard let imageView, let nameLabel else { return }
+        guard let vImage, let lblName else { return }
         
-        imageView.snp.makeConstraints { make in
+        vImage.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(contentView.frame.height * 0.05)
             make.trailing.equalToSuperview().inset(contentView.frame.height * 0.05)
             make.leading.equalToSuperview().offset(contentView.frame.width * 0.05)
             make.bottom.equalToSuperview().inset(contentView.frame.height * 0.26)
         }
-        nameLabel.snp.makeConstraints { make in
+        lblName.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(contentView.frame.height * 0.81)
             make.trailing.equalToSuperview()
             make.leading.equalToSuperview()
@@ -60,7 +60,7 @@ final class CardCollectionViewCell: UICollectionViewCell {
     }
     
     func fill(with image: UIImage?, name: String?) {
-        imageView?.image = image
-        nameLabel?.text = name
+        vImage?.image = image
+        lblName?.text = name
     }
 }

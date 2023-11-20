@@ -19,8 +19,10 @@ final class InfoViewController: UIViewController {
         tbl.backgroundColor = UIColor(named: Constants.Colors.screenColor)
         tbl.delegate = self
         tbl.dataSource = self
+        tbl.sectionHeaderTopPadding = 0.0
         tbl.register(CharacterTableViewCell.self)
         tbl.register(InfoTableViewCell.self)
+        tbl.register(OriginTableViewCell.self)
         return tbl
     }()
     
@@ -134,6 +136,14 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.fill(species: species, type: type ?? "None", gender: gender)
             return cell
             
+        case 2:
+            let cell: OriginTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            let planet = results?.origin.name
+            
+            cell.fill(origin: planet)
+            
+            return cell
         default:
             let cell = UITableViewCell()
             return cell
