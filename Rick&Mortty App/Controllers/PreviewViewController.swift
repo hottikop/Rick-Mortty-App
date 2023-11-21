@@ -56,6 +56,24 @@ final class PreviewViewController: UIViewController {
     
     //MARK: - Methods
     
+    private func setupNavBar() {
+        let navBar = navigationController?.navigationBar
+        navBar?.barTintColor = UIColor(named: Constants.Colors.screenColor)
+        navBar?.prefersLargeTitles = true
+        navigationItem.backButtonTitle = ""
+    }
+    
+    private func setupUI() {
+        title = Constants.Strings.previewTitle
+        view.addSubview(cvCharacterList)
+    }
+    
+    private func setupConstraints() {
+        cvCharacterList.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     private func loadData() {
         if isLoading { return }
         isLoading = true
@@ -73,29 +91,12 @@ final class PreviewViewController: UIViewController {
     }
     
     private func loadImage(indexPath: IndexPath, completion: @escaping (UIImage) -> Void) {
-        let id = characters[indexPath.row / 20].results[indexPath.row % 20].id
+        let id = characters[indexPath.row / Constants.Values.charactersCount].results[indexPath.row % Constants.Values.charactersCount].id
         let path = Constants.Network.imagePath + String(id) + ".jpeg"
         
         NetworkDataFetch.shared.fetchImage(path: path) { newImage, _ in
             let image = newImage ?? UIImage()
             completion(image)
-        }
-    }
-    
-    private func setupNavBar() {
-        let navBar = navigationController?.navigationBar
-        navBar?.barTintColor = UIColor(named: Constants.Colors.screenColor)
-        navBar?.prefersLargeTitles = true
-    }
-    
-    private func setupUI() {
-        title = Constants.Strings.previewTitle
-        view.addSubview(cvCharacterList)
-    }
-    
-    private func setupConstraints() {
-        cvCharacterList.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
     }
 }
@@ -116,10 +117,10 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CardCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
-        let results = characters[indexPath.item / 20].results
+        let results = characters[indexPath.item / Constants.Values.charactersCount].results
         
         loadImage(indexPath: indexPath) { image in
-            cell.fill(with: image, name: results[indexPath.item % 20].name)
+            cell.fill(with: image, name: results[indexPath.item % Constants.Values.charactersCount].name)
         }
         return cell
     }
@@ -140,7 +141,8 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let result = characters[indexPath.item / 20].results[indexPath.item % 20]
+        let result = characters[indexPath.item / Constants.Values.charactersCount]
+            .results[indexPath.item % Constants.Values.charactersCount]
         
         let vc = InfoViewController(result)
         navigationController?.pushViewController(vc, animated: true)

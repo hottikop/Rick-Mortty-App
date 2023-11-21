@@ -13,6 +13,7 @@ final class InfoViewController: UIViewController {
     
     private var results: Results?
     private var image: UIImage?
+    private var episodes: [EpisodeModel] = []
     
     private lazy var tblCharacterInfo: UITableView = {
         let tbl = UITableView()
@@ -23,6 +24,7 @@ final class InfoViewController: UIViewController {
         tbl.register(CharacterTableViewCell.self)
         tbl.register(InfoTableViewCell.self)
         tbl.register(OriginTableViewCell.self)
+        tbl.register(EpisodesTableViewCell.self)
         return tbl
     }()
     
@@ -30,7 +32,6 @@ final class InfoViewController: UIViewController {
     
     init(_ results: Results) {
         self.results = results
-        
         
         super.init(nibName: nil, bundle: nil)
         self.loadImage { newImage in
@@ -46,12 +47,14 @@ final class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadEpisodes()
         setupUI()
         setupConstraints()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavBar()
+        //setupNavBar()
         tblCharacterInfo.reloadData()
     }
     
@@ -70,7 +73,6 @@ final class InfoViewController: UIViewController {
     private func setupNavBar() {
         let navBar = navigationController?.navigationBar
         navBar?.barTintColor = UIColor(named: Constants.Colors.screenColor)
-        navBar?.prefersLargeTitles = true
     }
     
     private func loadImage(_ completion: @escaping (UIImage) -> Void) {
@@ -88,6 +90,58 @@ final class InfoViewController: UIViewController {
             }
         }
     }
+    
+    private func loadEpisodes() {
+        guard let results else { return }
+    
+        for ep in results.episode {
+            var path = ""
+            
+            do {
+                let regex = try NSRegularExpression(pattern: "/([^/]+)$", options: [])
+                if let match = regex.firstMatch(in: ep, options: [], range: NSRange(location: 0, length: ep.utf16.count)) {
+                    let range = Range(match.range(at: 1), in: ep)
+                    if let value = range.map({ String(ep[$0]) }) {
+                        path = Constants.Network.episodePath + value
+                    }
+                }
+            } catch {
+                print("\(error)")
+            }
+            
+            NetworkDataFetch.shared.fetchData(path: path, responseType: EpisodeModel.self) { [weak self] episode, _ in
+                
+                guard let episode else { return }
+                self?.episodes.append(episode)
+                self?.tblCharacterInfo.reloadData()
+            }
+        }
+    }
+    
+    private func convertString(_ input: String) -> [String]? {
+        let regex = try? NSRegularExpression(pattern: #"S(\d+)E(\d+)"#)
+        var array: [String] = []
+        
+        if let regex = regex, let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count)) {
+            
+            if let seasonRange = Range(match.range(at: 1), in: input),
+               let episodeRange = Range(match.range(at: 2), in: input),
+               let season = Int(input[seasonRange]),
+               let episode = Int(input[episodeRange]) {
+                
+                let seasonNumber = String(season)
+                let episodeNumber = String(episode)
+        
+                array.append(episodeNumber)
+                array.append(seasonNumber)
+                
+                return array
+            }
+        }
+        
+        return nil
+    }
+
 }
 
 extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -112,38 +166,54 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        guard let results else { return UITableViewCell()}
         switch indexPath.section {
         case 0:
             let cell: CharacterTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
-            let name = results?.name
-            let status = results?.status
+            let name = results.name
+            let status = results.status
             
             cell.fill(image: image, name: name, status: status)
-            
             return cell
         case 1:
             let cell: InfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
-            let species = results?.species
-            var type = results?.type
-            if ((type?.isEmpty) != nil) {
+            let species = results.species
+            var type = results.type
+            if type.isEmpty {
                 type = "None"
             }
-            let gender = results?.gender
+            let gender = results.gender
             
-            cell.fill(species: species, type: type ?? "None", gender: gender)
+            cell.fill(species: species, type: type , gender: gender)
             return cell
             
         case 2:
             let cell: OriginTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
-            let planet = results?.origin.name
+            let planet = results.origin.name
             
             cell.fill(origin: planet)
+            return cell
+            
+        case 3:
+            let cell: EpisodesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        
+            if !episodes.isEmpty {
+                
+                let episodeName = episodes[indexPath.row].name
+                
+                let episodeInfo = convertString(episodes[indexPath.row].episode)
+                let episodeValue = episodeInfo?[0]
+                let seasonValue = episodeInfo?[1]
+                let episodeDate = episodes[indexPath.row].airDate
+                
+                cell.fill(episodeName: episodeName, episodeValue: episodeValue ?? "", seasonValue: seasonValue ?? "", episodeDate: episodeDate)
+            }
             
             return cell
+            
         default:
             let cell = UITableViewCell()
             return cell

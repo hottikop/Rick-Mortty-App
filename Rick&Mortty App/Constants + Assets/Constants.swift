@@ -13,6 +13,7 @@ struct Constants {
         static let host = "rickandmortyapi.com"
         static let path = "/api/character"
         static let imagePath = "/api/character/avatar/"
+        static let episodePath = "/api/episode/"
         static let page = "page"
     }
     
@@ -35,6 +36,10 @@ struct Constants {
     
     struct Values {
         static let charactersCount = 20
+    }
+    
+    struct Items {
+        static let chevronLeft = "chevronLeft"
     }
 }
 

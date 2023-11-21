@@ -15,6 +15,7 @@
 		500894412B04AEF200EA91D9 /* URLSession + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500894402B04AEF200EA91D9 /* URLSession + Extension.swift */; };
 		503834912B0BDA4B00B6841F /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */; };
 		506E213C2B04C18E002F3EB5 /* Rick and Morty.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506E213B2B04C18E002F3EB5 /* Rick and Morty.xcassets */; };
+		507210B62B0C8A5700F1CCDC /* EpisodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507210B52B0C8A5700F1CCDC /* EpisodesTableViewCell.swift */; };
 		507E5A5A2B0B45110058CF2C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E5A592B0B45110058CF2C /* InfoViewController.swift */; };
 		507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */; };
 		5084AA8A2B0949F0001E090A /* UITableViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA892B0949F0001E090A /* UITableViewCell + Extension.swift */; };
@@ -42,6 +43,7 @@
 		500894402B04AEF200EA91D9 /* URLSession + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Extension.swift"; sourceTree = "<group>"; };
 		503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		506E213B2B04C18E002F3EB5 /* Rick and Morty.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Rick and Morty.xcassets"; sourceTree = "<group>"; };
+		507210B52B0C8A5700F1CCDC /* EpisodesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesTableViewCell.swift; sourceTree = "<group>"; };
 		507E5A592B0B45110058CF2C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		5084AA892B0949F0001E090A /* UITableViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extension.swift"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */,
 				503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */,
 				50B2902A2B0BF10700BD11E3 /* OriginTableViewCell.swift */,
+				507210B52B0C8A5700F1CCDC /* EpisodesTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */,
 				5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */,
 				50F581E52A90C6A00047D6F1 /* CardCollectionViewCell.swift in Sources */,
+				507210B62B0C8A5700F1CCDC /* EpisodesTableViewCell.swift in Sources */,
 				507E5A5A2B0B45110058CF2C /* InfoViewController.swift in Sources */,
 				5084AA902B094A63001E090A /* UICollectionView.swift in Sources */,
 			);
