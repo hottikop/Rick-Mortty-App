@@ -29,7 +29,7 @@ struct Constants {
         static let somethigWrong = "somethigWrong"
         static let previewTitle = "Characters"
     }
-   
+    
     struct Images {
         static let planetImage = "planetImage"
     }

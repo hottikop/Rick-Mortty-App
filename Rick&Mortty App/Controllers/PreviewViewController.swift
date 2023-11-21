@@ -23,7 +23,7 @@ final class PreviewViewController: UIViewController {
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.width * 0.42, height: view.frame.width * 0.53)
-
+        
         layout.sectionInset = UIEdgeInsets(top: view.frame.height * 0.02, left: view.frame.width * 0.05, bottom: view.frame.height * 0.02, right: view.frame.width * 0.07)
         layout.scrollDirection = .vertical
         return layout
@@ -37,8 +37,7 @@ final class PreviewViewController: UIViewController {
         cv.delegate = self
         return cv
     }()
-    
-    
+
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -77,11 +76,11 @@ final class PreviewViewController: UIViewController {
     private func loadData() {
         if isLoading { return }
         isLoading = true
-
+        
         currentPage += 1
-
+        
         let queryItems = [URLQueryItem(name: Constants.Network.page, value: String(currentPage))]
-
+        
         NetworkDataFetch.shared.fetchData(queryItems: queryItems, responseType: CharactersModel.self) { [weak self] character, _ in
             guard let character else { return }
             self?.characters.append(character)
@@ -91,7 +90,7 @@ final class PreviewViewController: UIViewController {
     }
     
     private func loadImage(indexPath: IndexPath, completion: @escaping (UIImage) -> Void) {
-        let id = characters[indexPath.row / Constants.Values.charactersCount].results[indexPath.row % Constants.Values.charactersCount].id
+        let id = characters[indexPath.row / 20].results[indexPath.row % 20].id
         let path = Constants.Network.imagePath + String(id) + ".jpeg"
         
         NetworkDataFetch.shared.fetchImage(path: path) { newImage, _ in
@@ -117,26 +116,22 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CardCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
-        let results = characters[indexPath.item / Constants.Values.charactersCount].results
+        let results = characters[indexPath.item / 20].results
         
-        loadImage(indexPath: indexPath) { image in
-            cell.fill(with: image, name: results[indexPath.item % Constants.Values.charactersCount].name)
-        }
+        //loadImage(indexPath: indexPath) { image in
+            cell.fill(with: nil, name: results[indexPath.item % 20 ].name)
+        //}
         return cell
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
+        
         let lastItem = collectionView.numberOfItems(inSection: indexPath.section) - 1
         
         guard !isLoading && indexPath.item == lastItem else { return }
         
         loadData()
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        false
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

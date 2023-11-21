@@ -93,7 +93,7 @@ final class InfoViewController: UIViewController {
     
     private func loadEpisodes() {
         guard let results else { return }
-    
+        
         for ep in results.episode {
             var path = ""
             
@@ -131,7 +131,7 @@ final class InfoViewController: UIViewController {
                 
                 let seasonNumber = String(season)
                 let episodeNumber = String(episode)
-        
+                
                 array.append(episodeNumber)
                 array.append(seasonNumber)
                 
@@ -141,8 +141,9 @@ final class InfoViewController: UIViewController {
         
         return nil
     }
-
 }
+
+//MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -199,8 +200,8 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             
         case 3:
             let cell: EpisodesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        
-            if !episodes.isEmpty {
+            
+            if episodes.count == self.results?.episode.count {
                 
                 let episodeName = episodes[indexPath.row].name
                 
@@ -238,5 +239,4 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             headerView.textLabel?.textColor = .white
         }
     }
-    
 }
