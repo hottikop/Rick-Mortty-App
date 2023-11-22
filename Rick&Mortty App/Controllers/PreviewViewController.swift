@@ -19,6 +19,7 @@ final class PreviewViewController: UIViewController {
     private var characters: [CharactersModel] = []
     private var currentPage = 0
     private var isLoading = false
+    private var isLoadingImage = false
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -37,7 +38,7 @@ final class PreviewViewController: UIViewController {
         cv.delegate = self
         return cv
     }()
-
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -118,9 +119,11 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         let results = characters[indexPath.item / 20].results
         
-        //loadImage(indexPath: indexPath) { image in
-            cell.fill(with: nil, name: results[indexPath.item % 20 ].name)
-        //}
+        cell.fill(name: results[indexPath.item % 20 ].name)
+        
+        loadImage(indexPath: indexPath) { image in
+            cell.fillImage(image: image)
+        }
         return cell
     }
     

@@ -59,8 +59,11 @@ final class CardCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func fill(with image: UIImage?, name: String?) {
-        vImage?.image = image
+    func fill(name: String?) {
         lblName?.text = name
+    }
+    
+    func fillImage(image: UIImage?) {
+        vImage?.image = image
     }
 }
