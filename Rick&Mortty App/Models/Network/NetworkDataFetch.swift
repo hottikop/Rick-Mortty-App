@@ -7,10 +7,17 @@
 
 import UIKit
 
-class NetworkDataFetch {
+final class NetworkDataFetch {
+    
+    //MARK: - Properties
+    
     static let shared = NetworkDataFetch()
     
+    //MARK: - Initializer
+    
     private init() {}
+    
+    //MARK: - Methods
     
     func fetchData<T: Decodable>(path: String = Constants.Network.path, queryItems: [URLQueryItem] = [],
                                  responseType: T.Type,
@@ -29,7 +36,6 @@ class NetworkDataFetch {
                     }
                     
                 } catch let decodeError {
-                    print(decodeError)
                     DispatchQueue.main.async {
                         
                         response(nil, .parseDataError(originalError: decodeError))

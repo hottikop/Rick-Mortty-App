@@ -1,10 +1,14 @@
 import Foundation
 import UIKit
 
+//MARK: - CharactersModel
+
 struct CharactersModel: Decodable {
     var info: Info
     var results: [Results]
 }
+
+//MARK: - Info
 
 struct Info: Decodable {
     var count: Int
@@ -12,6 +16,8 @@ struct Info: Decodable {
     var next: String?
     var prev: String?
 }
+
+//MARK: - Results
 
 struct Results: Decodable {
     var id: Int
@@ -28,35 +34,23 @@ struct Results: Decodable {
     var created: String
 }
 
+//MARK: - Origin
+
 struct Origin: Decodable {
     var name: String
     var url: String
 }
+
+//MARK: - Location
 
 struct Location: Decodable {
     var name: String
     var url: String
 }
 
-extension Results {
-    enum FieldType: Int, CaseIterable {
-        case id = 0
-        case name
-        case status
-        case species
-        case type
-        case gender
-        case origin
-        case location
-        case image
-        case episode
-        case url
-        case created
-    }
-}
-
 // MARK: - EpisodeModel
-struct EpisodeModel: Codable {
+
+struct EpisodeModel: Decodable {
     let id: Int
     let name, airDate, episode: String
     let characters: [String]

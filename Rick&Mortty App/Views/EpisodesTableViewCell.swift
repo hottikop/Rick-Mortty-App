@@ -93,7 +93,7 @@ final class EpisodesTableViewCell: UITableViewCell {
     
     func fill(episodeName: String, episodeValue: String, seasonValue: String, episodeDate: String) {
         lblEpisodeName.text = episodeName
-        lblEpisodeInfo.text = "Episode \(String(describing: episodeValue)), Season \(String(describing: seasonValue))"
+        lblEpisodeInfo.text = "Episode \(episodeValue), Season \(seasonValue)"
         lblDate.text = episodeDate
     }
 }

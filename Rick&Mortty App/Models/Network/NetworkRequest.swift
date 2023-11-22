@@ -7,10 +7,17 @@
 
 import Foundation
 
-class NetworkRequest {
+final class NetworkRequest {
+    
+    //MARK: - Properties
+    
     static let shared = NetworkRequest()
     
+    //MARK: - Initializer
+    
     private init() {}
+    
+    //MARK: - Methods
     
     func getData(path: String = Constants.Network.path, queryItems: [URLQueryItem] = [],
                  completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {

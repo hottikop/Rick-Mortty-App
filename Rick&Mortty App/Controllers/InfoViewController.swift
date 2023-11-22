@@ -34,9 +34,6 @@ final class InfoViewController: UIViewController {
         self.results = results
         
         super.init(nibName: nil, bundle: nil)
-        self.loadImage { newImage in
-            self.image = newImage
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +44,9 @@ final class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadImage { newImage in
+            self.image = newImage
+        }
         loadEpisodes()
         setupUI()
         setupConstraints()
@@ -54,7 +54,6 @@ final class InfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //setupNavBar()
         tblCharacterInfo.reloadData()
     }
     
@@ -118,39 +117,34 @@ final class InfoViewController: UIViewController {
         }
     }
     
-    private func convertString(_ input: String) -> [String]? {
-        let regex = try? NSRegularExpression(pattern: #"S(\d+)E(\d+)"#)
-        var array: [String] = []
+    private func getEpisodeInfo(_ input: String) -> [String]? {
+        let regexPattern = #"S(\d+)E(\d+)"#
         
-        if let regex = regex, let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count)) {
-            
-            if let seasonRange = Range(match.range(at: 1), in: input),
-               let episodeRange = Range(match.range(at: 2), in: input),
-               let season = Int(input[seasonRange]),
-               let episode = Int(input[episodeRange]) {
-                
-                let seasonNumber = String(season)
-                let episodeNumber = String(episode)
-                
-                array.append(episodeNumber)
-                array.append(seasonNumber)
-                
-                return array
-            }
+        guard let regex = try? NSRegularExpression(pattern: regexPattern) else {
+            return nil
         }
         
-        return nil
+        guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count)) else {
+            return nil
+        }
+
+        guard let seasonRange = Range(match.range(at: 1), in: input),
+              let episodeRange = Range(match.range(at: 2), in: input),
+              let season = Int(input[seasonRange]),
+              let episode = Int(input[episodeRange]) else {
+            return nil
+        }
+
+        let seasonNumber = String(season)
+        let episodeNumber = String(episode)
+        
+        return [episodeNumber, seasonNumber]
     }
 }
 
-//MARK: - UITableViewDelegate, UITableViewDataSource
+//MARK: - UITableViewDataSource
 
-extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        4
-    }
-    
+extension InfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -181,10 +175,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             let cell: InfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
             let species = results.species
-            var type = results.type
-            if type.isEmpty {
-                type = "None"
-            }
+            let type = results.type.isEmpty ? "None" : results.type
             let gender = results.gender
             
             cell.fill(species: species, type: type , gender: gender)
@@ -205,7 +196,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let episodeName = episodes[indexPath.row].name
                 
-                let episodeInfo = convertString(episodes[indexPath.row].episode)
+                let episodeInfo = getEpisodeInfo(episodes[indexPath.row].episode)
                 let episodeValue = episodeInfo?[0]
                 let seasonValue = episodeInfo?[1]
                 let episodeDate = episodes[indexPath.row].airDate
@@ -219,6 +210,14 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = UITableViewCell()
             return cell
         }
+    }
+}
+
+//MARK: - UITableViewDelegate
+
+extension InfoViewController: UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        4
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -5,14 +5,23 @@ final class CardCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Properties
     
-    private lazy var vImage: UIImageView? = {
+    private lazy var vInner: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 16
+        view.backgroundColor = UIColor(named: Constants.Colors.cardColor)
+        
+        return view
+    }()
+    
+    private lazy var vImage: UIImageView = {
         let img = UIImageView()
         img.layer.cornerRadius = 10
         img.layer.masksToBounds = true
         return img
     }()
     
-    private lazy var lblName: UILabel? = {
+    private lazy var lblName: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
         lbl.font = .boldSystemFont(ofSize: 17)
@@ -35,35 +44,34 @@ final class CardCollectionViewCell: UICollectionViewCell {
     //MARK: - Methods
     
     private func setupUI() {
-        contentView.layer.cornerRadius = 16
-        contentView.layer.masksToBounds = true
-        contentView.backgroundColor = UIColor(named: Constants.Colors.cardColor)
-        contentView.addSubview(vImage ?? UIImageView(image: .checkmark))
-        contentView.addSubview(lblName ?? UILabel())
+        contentView.addSubview(vInner)
+        contentView.addSubview(vImage)
+        contentView.addSubview(lblName)
     }
     
     private func setupConstraints() {
-        guard let vImage, let lblName else { return }
-        
-        vImage.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(contentView.frame.height * 0.05)
-            make.trailing.equalToSuperview().inset(contentView.frame.height * 0.05)
-            make.leading.equalToSuperview().offset(contentView.frame.width * 0.05)
-            make.bottom.equalToSuperview().inset(contentView.frame.height * 0.26)
+        vInner.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        lblName.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(contentView.frame.height * 0.81)
-            make.trailing.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview().inset(contentView.frame.height * 0.07)
+
+        vImage.snp.makeConstraints {
+            $0.top.equalTo(vInner.snp.top).inset(8)
+            $0.centerX.equalTo(vInner)
+            $0.size.equalTo(140)
+        }
+
+        lblName.snp.makeConstraints {
+            $0.top.equalTo(vImage.snp.bottom).inset(-16)
+            $0.centerX.equalTo(vInner)
+            $0.bottom.equalTo(vInner).inset(16)
         }
     }
     
     func fill(name: String?) {
-        lblName?.text = name
+        lblName.text = name
     }
     
     func fillImage(image: UIImage?) {
-        vImage?.image = image
+        vImage.image = image
     }
 }

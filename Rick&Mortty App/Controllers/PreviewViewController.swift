@@ -5,11 +5,11 @@
 //  Created by Максим Целигоров on 17.08.2023.
 //
 
+import UIKit
+
 protocol PreviewViewControllerDelegate: AnyObject {
     func previewViewController(_ vc: PreviewViewController, willShow characterInfo: Results)
 }
-
-import UIKit
 
 final class PreviewViewController: UIViewController {
     
@@ -19,7 +19,6 @@ final class PreviewViewController: UIViewController {
     private var characters: [CharactersModel] = []
     private var currentPage = 0
     private var isLoading = false
-    private var isLoadingImage = false
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -51,7 +50,6 @@ final class PreviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavBar()
-        cvCharacterList.reloadData()
     }
     
     //MARK: - Methods
@@ -69,13 +67,13 @@ final class PreviewViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        cvCharacterList.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        cvCharacterList.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
     
     private func loadData() {
-        if isLoading { return }
+        guard !isLoading else { return }
         isLoading = true
         
         currentPage += 1
@@ -102,16 +100,12 @@ final class PreviewViewController: UIViewController {
 }
 
 
-//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 
-extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
+extension PreviewViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = characters.reduce(0, { $0 + $1.results.count })
-        return count
+        return characters.reduce(0, { $0 + $1.results.count })
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -122,12 +116,17 @@ extension PreviewViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.fill(name: results[indexPath.item % 20 ].name)
         
         loadImage(indexPath: indexPath) { image in
+            
+            guard let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell else { return }
             cell.fillImage(image: image)
         }
         return cell
     }
-    
-    
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension PreviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         let lastItem = collectionView.numberOfItems(inSection: indexPath.section) - 1
