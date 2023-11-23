@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol PreviewViewControllerDelegate: AnyObject {
     func previewViewController(_ vc: PreviewViewController, willShow characterInfo: Results)
@@ -15,7 +16,7 @@ final class PreviewViewController: UIViewController {
     
     //MARK: - Properties
     
-    weak var delegate: PreviewViewControllerDelegate?
+    private var charactersService: CharactersService
     private var characters: [CharactersModel] = []
     private var currentPage = 0
     private var isLoading = false
@@ -37,6 +38,17 @@ final class PreviewViewController: UIViewController {
         cv.delegate = self
         return cv
     }()
+    
+    //MARK: - Initializers
+    
+    init(charactersServise: CharactersService = CharactersService()) {
+        self.charactersService = charactersServise
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - Lifecycle
     
@@ -78,23 +90,22 @@ final class PreviewViewController: UIViewController {
         
         currentPage += 1
         
-        let queryItems = [URLQueryItem(name: Constants.Network.page, value: String(currentPage))]
-        
-        NetworkDataFetch.shared.fetchData(queryItems: queryItems, responseType: CharactersModel.self) { [weak self] character, _ in
-            guard let character else { return }
-            self?.characters.append(character)
-            self?.cvCharacterList.reloadData()
-            self?.isLoading = false
+        charactersService.loadCharacter(currentPage: currentPage) { character in
+
+            self.characters.append(character)
+            self.cvCharacterList.reloadData()
+            self.isLoading = false
         }
+        
     }
     
     private func loadImage(indexPath: IndexPath, completion: @escaping (UIImage) -> Void) {
-        let id = characters[indexPath.row / 20].results[indexPath.row % 20].id
-        let path = Constants.Network.imagePath + String(id) + ".jpeg"
         
-        NetworkDataFetch.shared.fetchImage(path: path) { newImage, _ in
-            let image = newImage ?? UIImage()
-            completion(image)
+        let id = characters[indexPath.row / Constants.Values.charactersCount].results[indexPath.row % Constants.Values.charactersCount].id
+        
+        charactersService.loadImage(characters: characters, indexPath: indexPath, id: id) { newImage in
+        
+            completion(newImage)
         }
     }
 }
@@ -111,9 +122,9 @@ extension PreviewViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CardCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
         
-        let results = characters[indexPath.item / 20].results
+        let results = characters[indexPath.item / Constants.Values.charactersCount].results
         
-        cell.fill(name: results[indexPath.item % 20 ].name)
+        cell.fill(name: results[indexPath.item % Constants.Values.charactersCount].name)
         
         loadImage(indexPath: indexPath) { image in
             

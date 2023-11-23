@@ -7,15 +7,11 @@
 
 import Foundation
 
-final class NetworkRequest {
-    
-    //MARK: - Properties
-    
-    static let shared = NetworkRequest()
-    
-    //MARK: - Initializer
-    
-    private init() {}
+protocol NetworkRequestProtocol {
+    func getData(path: String, queryItems: [URLQueryItem], completionHandler:  @escaping (Result<Data, NetworkError>) -> Void)
+}
+
+final class NetworkRequest: NetworkRequestProtocol {
     
     //MARK: - Methods
     

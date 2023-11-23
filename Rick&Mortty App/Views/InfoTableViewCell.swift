@@ -94,13 +94,13 @@ final class InfoTableViewCell: UITableViewCell {
     
     private func setupUI() {
         contentView.backgroundColor = UIColor(named: Constants.Colors.screenColor)
-        contentView.addSubview(vInner)
-        contentView.addSubview(lblSpecies)
-        contentView.addSubview(lblType)
-        contentView.addSubview(lblGender)
-        contentView.addSubview(lblSpeciesValue)
-        contentView.addSubview(lblTypeValue)
-        contentView.addSubview(lblGenderValue)
+        contentView.addSubviews(vInner,
+                                lblSpecies,
+                                lblType,
+                                lblGender,
+                                lblSpeciesValue,
+                                lblTypeValue, 
+                                lblGenderValue)
     }
     
     private func setupConstraints() {

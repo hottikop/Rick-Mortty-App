@@ -44,9 +44,9 @@ final class CardCollectionViewCell: UICollectionViewCell {
     //MARK: - Methods
     
     private func setupUI() {
-        contentView.addSubview(vInner)
-        contentView.addSubview(vImage)
-        contentView.addSubview(lblName)
+        contentView.addSubviews(vInner,
+                                vImage,
+                                lblName)
     }
     
     private func setupConstraints() {

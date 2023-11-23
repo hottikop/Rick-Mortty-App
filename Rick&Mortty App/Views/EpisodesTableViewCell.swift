@@ -60,10 +60,10 @@ final class EpisodesTableViewCell: UITableViewCell {
     
     private func setupUI() {
         contentView.backgroundColor = UIColor(named: Constants.Colors.screenColor)
-        contentView.addSubview(vInner)
-        contentView.addSubview(lblEpisodeName)
-        contentView.addSubview(lblEpisodeInfo)
-        contentView.addSubview(lblDate)
+        contentView.addSubviews(vInner,
+                                lblEpisodeName,
+                                lblEpisodeInfo,
+                                lblDate)
     }
     
     private func setupConstraints() {

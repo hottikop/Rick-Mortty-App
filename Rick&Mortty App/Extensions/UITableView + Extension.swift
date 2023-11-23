@@ -15,4 +15,8 @@ extension UITableView {
     func register(_ cellType: UITableViewCell.Type) {
         register(cellType, forCellReuseIdentifier: cellType.reuseId)
     }
+    
+    func registerSeveralCells(_ cellTypes: UITableViewCell.Type...) {
+        cellTypes.forEach { register($0) }
+    }
 }

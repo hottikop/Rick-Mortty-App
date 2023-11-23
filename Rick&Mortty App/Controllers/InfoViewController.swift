@@ -11,6 +11,7 @@ final class InfoViewController: UIViewController {
     
     //MARK: - Properties
     
+    private var charactersService: CharactersService
     private var results: Results?
     private var image: UIImage?
     private var episodes: [EpisodeModel] = []
@@ -21,18 +22,19 @@ final class InfoViewController: UIViewController {
         tbl.delegate = self
         tbl.dataSource = self
         tbl.sectionHeaderTopPadding = 0.0
-        tbl.register(CharacterTableViewCell.self)
-        tbl.register(InfoTableViewCell.self)
-        tbl.register(OriginTableViewCell.self)
-        tbl.register(EpisodesTableViewCell.self)
+        tbl.registerSeveralCells(CharacterTableViewCell.self,
+                                 InfoTableViewCell.self,
+                                 OriginTableViewCell.self,
+                                 EpisodesTableViewCell.self)
         return tbl
     }()
     
     //MARK: - Initializers
     
-    init(_ results: Results) {
+    init(_ results: Results,
+         charactersService: CharactersService = CharactersService()) {
         self.results = results
-        
+        self.charactersService = charactersService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -78,10 +80,9 @@ final class InfoViewController: UIViewController {
         guard let results else { return }
         
         let id = results.id
-        let path = Constants.Network.imagePath + String(id) + ".jpeg"
         
-        NetworkDataFetch.shared.fetchImage(path: path) { newImage, _ in
-            let image = newImage ?? UIImage()
+        charactersService.loadImage(characters: nil, indexPath: nil, id: id) { newImage in
+            let image = newImage
             completion(image)
             
             DispatchQueue.main.async {
@@ -93,29 +94,35 @@ final class InfoViewController: UIViewController {
     private func loadEpisodes() {
         guard let results else { return }
         
+        let dispatchGroup = DispatchGroup()
+        
         for ep in results.episode {
-            var path = ""
+            dispatchGroup.enter()
             
-            do {
-                let regex = try NSRegularExpression(pattern: "/([^/]+)$", options: [])
-                if let match = regex.firstMatch(in: ep, options: [], range: NSRange(location: 0, length: ep.utf16.count)) {
-                    let range = Range(match.range(at: 1), in: ep)
-                    if let value = range.map({ String(ep[$0]) }) {
-                        path = Constants.Network.episodePath + value
-                    }
+            charactersService.loadEpisode(fromEpisodeURL: ep) { [weak self] episode, _ in
+                defer {
+                    dispatchGroup.leave()
                 }
-            } catch {
-                print("\(error)")
-            }
-            
-            NetworkDataFetch.shared.fetchData(path: path, responseType: EpisodeModel.self) { [weak self] episode, _ in
                 
-                guard let episode else { return }
+                guard let episode = episode else { return }
                 self?.episodes.append(episode)
-                self?.tblCharacterInfo.reloadData()
             }
         }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.episodes.sort {
+                
+                guard let index1 = results.episode.firstIndex(of: $0.url),
+                      let index2 = results.episode.firstIndex(of: $1.url) else {
+                    return false
+                }
+                return index1 < index2
+            }
+            
+            self?.tblCharacterInfo.reloadData()
+        }
     }
+    
     
     private func getEpisodeInfo(_ input: String) -> [String]? {
         let regexPattern = #"S(\d+)E(\d+)"#
@@ -127,14 +134,14 @@ final class InfoViewController: UIViewController {
         guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count)) else {
             return nil
         }
-
+        
         guard let seasonRange = Range(match.range(at: 1), in: input),
               let episodeRange = Range(match.range(at: 2), in: input),
               let season = Int(input[seasonRange]),
               let episode = Int(input[episodeRange]) else {
             return nil
         }
-
+        
         let seasonNumber = String(season)
         let episodeNumber = String(episode)
         
@@ -145,25 +152,50 @@ final class InfoViewController: UIViewController {
 //MARK: - UITableViewDataSource
 
 extension InfoViewController: UITableViewDataSource {
+    
+    enum TableSection: Int, CaseIterable, CustomStringConvertible {
+        case characterInfoSection
+        case infoSection
+        case originSection
+        case episodeSection
+        
+        var description: String {
+            switch self {
+            case .infoSection:
+                return "Info"
+            case .originSection:
+                return "Origin"
+            case .episodeSection:
+                return "Episodes"
+            case .characterInfoSection:
+                return ""
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 1
-        case 3:
-            return results?.episode.count ?? 2
-        default:
+        
+        guard let section = TableSection(rawValue: section) else {
             return 0
+        }
+        
+        switch section {
+        case .characterInfoSection, .infoSection, .originSection:
+            return 1
+        case .episodeSection:
+            return results?.episode.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let results else { return UITableViewCell()}
-        switch indexPath.section {
-        case 0:
+        guard let results = self.results else { return UITableViewCell() }
+        
+        guard let section = TableSection(rawValue: indexPath.section) else {
+            return UITableViewCell()
+        }
+        
+        switch section {
+        case .characterInfoSection:
             let cell: CharacterTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
             let name = results.name
@@ -171,17 +203,18 @@ extension InfoViewController: UITableViewDataSource {
             
             cell.fill(image: image, name: name, status: status)
             return cell
-        case 1:
+            
+        case .infoSection:
             let cell: InfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
             let species = results.species
             let type = results.type.isEmpty ? "None" : results.type
             let gender = results.gender
             
-            cell.fill(species: species, type: type , gender: gender)
+            cell.fill(species: species, type: type, gender: gender)
             return cell
             
-        case 2:
+        case .originSection:
             let cell: OriginTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
             let planet = results.origin.name
@@ -189,25 +222,23 @@ extension InfoViewController: UITableViewDataSource {
             cell.fill(origin: planet)
             return cell
             
-        case 3:
+        case .episodeSection:
             let cell: EpisodesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             
             if episodes.count == self.results?.episode.count {
+                let episode = episodes[indexPath.row]
                 
-                let episodeName = episodes[indexPath.row].name
+                let episodeName = episode.name
                 
-                let episodeInfo = getEpisodeInfo(episodes[indexPath.row].episode)
-                let episodeValue = episodeInfo?[0]
-                let seasonValue = episodeInfo?[1]
-                let episodeDate = episodes[indexPath.row].airDate
-                
-                cell.fill(episodeName: episodeName, episodeValue: episodeValue ?? "", seasonValue: seasonValue ?? "", episodeDate: episodeDate)
+                if let episodeInfo = getEpisodeInfo(episode.episode) {
+                    let episodeValue = episodeInfo[0]
+                    let seasonValue = episodeInfo[1]
+                    let episodeDate = episode.airDate
+                    
+                    cell.fill(episodeName: episodeName, episodeValue: episodeValue, seasonValue: seasonValue, episodeDate: episodeDate)
+                }
             }
             
-            return cell
-            
-        default:
-            let cell = UITableViewCell()
             return cell
         }
     }
@@ -217,20 +248,15 @@ extension InfoViewController: UITableViewDataSource {
 
 extension InfoViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        4
+        TableSection.allCases.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 1:
-            return "Info"
-        case 2:
-            return "Origin"
-        case 3:
-            return "Episodes"
-        default:
+        guard let section = TableSection(rawValue: section) else {
             return nil
         }
+        
+        return section.description
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

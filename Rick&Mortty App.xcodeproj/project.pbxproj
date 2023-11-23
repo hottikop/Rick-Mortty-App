@@ -16,12 +16,15 @@
 		503834912B0BDA4B00B6841F /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */; };
 		507210B62B0C8A5700F1CCDC /* EpisodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507210B52B0C8A5700F1CCDC /* EpisodesTableViewCell.swift */; };
 		507210BE2B0DF3F900F1CCDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 507210BD2B0DF3F900F1CCDC /* Assets.xcassets */; };
+		507210C02B0E184900F1CCDC /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507210BF2B0E184900F1CCDC /* UIView + Extensions.swift */; };
 		507E5A5A2B0B45110058CF2C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E5A592B0B45110058CF2C /* InfoViewController.swift */; };
 		507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */; };
 		5084AA8A2B0949F0001E090A /* UITableViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA892B0949F0001E090A /* UITableViewCell + Extension.swift */; };
 		5084AA8C2B094A13001E090A /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8B2B094A13001E090A /* UITableView + Extension.swift */; };
 		5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */; };
 		5084AA902B094A63001E090A /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084AA8F2B094A63001E090A /* UICollectionView.swift */; };
+		5084D1A22B0F487400A1C39A /* CharactersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084D1A12B0F487400A1C39A /* CharactersService.swift */; };
+		5084D1A42B0F645400A1C39A /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084D1A32B0F645400A1C39A /* DesignSystem.swift */; };
 		50B2902B2B0BF10700BD11E3 /* OriginTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2902A2B0BF10700BD11E3 /* OriginTableViewCell.swift */; };
 		50DF38292A8DF3950046F019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF38282A8DF3950046F019 /* AppDelegate.swift */; };
 		50DF382B2A8DF3950046F019 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF382A2A8DF3950046F019 /* SceneDelegate.swift */; };
@@ -43,12 +46,15 @@
 		503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		507210B52B0C8A5700F1CCDC /* EpisodesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesTableViewCell.swift; sourceTree = "<group>"; };
 		507210BD2B0DF3F900F1CCDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		507210BF2B0E184900F1CCDC /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 		507E5A592B0B45110058CF2C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		507E5A5B2B0B53180058CF2C /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 		5084AA892B0949F0001E090A /* UITableViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8B2B094A13001E090A /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Extension.swift"; sourceTree = "<group>"; };
 		5084AA8F2B094A63001E090A /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		5084D1A12B0F487400A1C39A /* CharactersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersService.swift; sourceTree = "<group>"; };
+		5084D1A32B0F645400A1C39A /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		50B2902A2B0BF10700BD11E3 /* OriginTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginTableViewCell.swift; sourceTree = "<group>"; };
 		50DF38252A8DF3950046F019 /* Rick&Mortty App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rick&Mortty App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50DF38282A8DF3950046F019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +97,7 @@
 				5084AA8B2B094A13001E090A /* UITableView + Extension.swift */,
 				5084AA8D2B094A39001E090A /* UICollectionViewCell + Extension.swift */,
 				5084AA8F2B094A63001E090A /* UICollectionView.swift */,
+				507210BF2B0E184900F1CCDC /* UIView + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -99,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				50DF383E2A8DF60F0046F019 /* CharactersModel.swift */,
+				5084D1A12B0F487400A1C39A /* CharactersService.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -118,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				5008943E2B04AD9200EA91D9 /* Constants.swift */,
+				5084D1A32B0F645400A1C39A /* DesignSystem.swift */,
 			);
 			path = "Constants + Assets";
 			sourceTree = "<group>";
@@ -316,13 +325,16 @@
 				500894332B04ABD200EA91D9 /* Endpoint.swift in Sources */,
 				50DF382B2A8DF3950046F019 /* SceneDelegate.swift in Sources */,
 				500894412B04AEF200EA91D9 /* URLSession + Extension.swift in Sources */,
+				507210C02B0E184900F1CCDC /* UIView + Extensions.swift in Sources */,
 				50DF383F2A8DF60F0046F019 /* CharactersModel.swift in Sources */,
+				5084D1A42B0F645400A1C39A /* DesignSystem.swift in Sources */,
 				5008943F2B04AD9200EA91D9 /* Constants.swift in Sources */,
 				500894372B04AC4800EA91D9 /* NetworkDataFetch.swift in Sources */,
 				500894352B04AC2000EA91D9 /* NetworkRequest.swift in Sources */,
 				500894392B04AC6800EA91D9 /* NetworkError.swift in Sources */,
 				5084AA8C2B094A13001E090A /* UITableView + Extension.swift in Sources */,
 				50B2902B2B0BF10700BD11E3 /* OriginTableViewCell.swift in Sources */,
+				5084D1A22B0F487400A1C39A /* CharactersService.swift in Sources */,
 				507E5A5C2B0B53180058CF2C /* CharacterTableViewCell.swift in Sources */,
 				5084AA8E2B094A39001E090A /* UICollectionViewCell + Extension.swift in Sources */,
 				50F581E52A90C6A00047D6F1 /* CardCollectionViewCell.swift in Sources */,

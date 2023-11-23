@@ -54,9 +54,9 @@ final class CharacterTableViewCell: UITableViewCell {
     private func setupUI() {
         contentView.backgroundColor = UIColor(named: Constants.Colors.screenColor)
         
-        contentView.addSubview(vImage)
-        contentView.addSubview(lblName)
-        contentView.addSubview(lblStatus)
+        contentView.addSubviews(vImage,
+                                lblName,
+                                lblStatus)
     }
     
     private func setupConstraints() {

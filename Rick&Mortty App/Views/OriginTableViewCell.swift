@@ -69,11 +69,11 @@ final class OriginTableViewCell: UITableViewCell {
     
     private func setupUI() {
         contentView.backgroundColor = UIColor(named: Constants.Colors.screenColor)
-        contentView.addSubview(vInner)
-        contentView.addSubview(vImageInner)
-        contentView.addSubview(vImage)
-        contentView.addSubview(lblPlanet)
-        contentView.addSubview(lblPlanetValue)
+        contentView.addSubviews(vInner,
+                                vImageInner,
+                                vImage,
+                                lblPlanet,
+                                lblPlanetValue)
     }
     
     private func setupConstraints() {

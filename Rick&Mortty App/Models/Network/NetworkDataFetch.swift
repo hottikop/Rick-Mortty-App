@@ -7,15 +7,23 @@
 
 import UIKit
 
-final class NetworkDataFetch {
+protocol NetworkDataFetchProtocol {
+    func fetchData<T: Decodable>(path: String, queryItems: [URLQueryItem], responseType: T.Type, response: @escaping (T?, NetworkError?) -> Void)
+    
+    func fetchImage(path: String, completion: @escaping (UIImage?, NetworkError?) -> Void)
+}
+
+final class NetworkDataFetch: NetworkDataFetchProtocol{
     
     //MARK: - Properties
     
-    static let shared = NetworkDataFetch()
+    let networkRequest: NetworkRequest
     
     //MARK: - Initializer
     
-    private init() {}
+    init(networkRequest: NetworkRequest = NetworkRequest()) {
+        self.networkRequest = networkRequest
+    }
     
     //MARK: - Methods
     
@@ -23,7 +31,7 @@ final class NetworkDataFetch {
                                  responseType: T.Type,
                                  response: @escaping (T?, NetworkError?) -> Void) {
         
-        NetworkRequest.shared.getData(path: path, queryItems: queryItems) { result in
+        networkRequest.getData(path: path, queryItems: queryItems) { result in
             
             switch result {
             
@@ -51,7 +59,7 @@ final class NetworkDataFetch {
     }
     
     func fetchImage(path: String = Constants.Network.imagePath, completion: @escaping (UIImage?, NetworkError?) -> Void) {
-        NetworkRequest.shared.getData(path: path) { result in
+        networkRequest.getData(path: path) { result in
             switch result {
             case .success(let data):
                 if let image = UIImage(data: data) {
