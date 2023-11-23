@@ -63,6 +63,7 @@ final class CardCollectionViewCell: UICollectionViewCell {
         lblName.snp.makeConstraints {
             $0.top.equalTo(vImage.snp.bottom).inset(-16)
             $0.centerX.equalTo(vInner)
+            $0.horizontalEdges.equalTo(vInner)
             $0.bottom.equalTo(vInner).inset(16)
         }
     }
