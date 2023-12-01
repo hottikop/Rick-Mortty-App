@@ -14,18 +14,13 @@ protocol PreviewViewControllerDelegate: AnyObject {
 
 final class PreviewViewController: UIViewController {
     
-    //MARK: - Properties
-    
-    private var charactersService: CharactersService
-    private var characters: [CharactersModel] = []
-    private var currentPage = 0
-    private var isLoading = false
+    // MARK: - Subviews
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.width * 0.42, height: view.frame.width * 0.53)
+        layout.itemSize = Size.cardSize
         
-        layout.sectionInset = UIEdgeInsets(top: view.frame.height * 0.02, left: view.frame.width * 0.05, bottom: view.frame.height * 0.02, right: view.frame.width * 0.07)
+        layout.sectionInset = Size.cardInsets
         layout.scrollDirection = .vertical
         return layout
     }()
@@ -33,13 +28,20 @@ final class PreviewViewController: UIViewController {
     private lazy var cvCharacterList: UICollectionView = {
         let cv = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         cv.register(CardCollectionViewCell.self)
-        cv.backgroundColor = UIColor(named: Constants.Colors.screenColor)
+        cv.backgroundColor = R.color.screenColor()
         cv.dataSource = self
         cv.delegate = self
         return cv
     }()
     
-    //MARK: - Initializers
+    // MARK: - Properties
+    
+    private var charactersService: CharactersService
+    private var characters: [CharactersModel] = []
+    private var currentPage = 0
+    private var isLoading = false
+    
+    // MARK: - Initializers
     
     init(charactersServise: CharactersService = CharactersService()) {
         self.charactersService = charactersServise
@@ -50,7 +52,7 @@ final class PreviewViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,11 +66,11 @@ final class PreviewViewController: UIViewController {
         setupNavBar()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     private func setupNavBar() {
         let navBar = navigationController?.navigationBar
-        navBar?.barTintColor = UIColor(named: Constants.Colors.screenColor)
+        navBar?.barTintColor = R.color.screenColor()
         navBar?.prefersLargeTitles = true
         navigationItem.backButtonTitle = ""
     }
@@ -110,8 +112,7 @@ final class PreviewViewController: UIViewController {
     }
 }
 
-
-//MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension PreviewViewController: UICollectionViewDataSource {
     
@@ -135,7 +136,7 @@ extension PreviewViewController: UICollectionViewDataSource {
     }
 }
 
-//MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension PreviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

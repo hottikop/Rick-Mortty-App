@@ -9,7 +9,7 @@ import UIKit
 
 final class InfoViewController: UIViewController {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     private var charactersService: CharactersService
     private var results: Results?
@@ -18,10 +18,10 @@ final class InfoViewController: UIViewController {
     
     private lazy var tblCharacterInfo: UITableView = {
         let tbl = UITableView()
-        tbl.backgroundColor = UIColor(named: Constants.Colors.screenColor)
+        tbl.backgroundColor = R.color.screenColor()
         tbl.delegate = self
         tbl.dataSource = self
-        tbl.sectionHeaderTopPadding = 0.0
+        tbl.sectionHeaderTopPadding = .zero
         tbl.registerSeveralCells(CharacterTableViewCell.self,
                                  InfoTableViewCell.self,
                                  OriginTableViewCell.self,
@@ -29,7 +29,7 @@ final class InfoViewController: UIViewController {
         return tbl
     }()
     
-    //MARK: - Initializers
+    // MARK: - Initializers
     
     init(_ results: Results,
          charactersService: CharactersService = CharactersService()) {
@@ -42,7 +42,7 @@ final class InfoViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ final class InfoViewController: UIViewController {
         tblCharacterInfo.reloadData()
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     private func setupUI() {
         view.addSubview(tblCharacterInfo)
@@ -73,7 +73,7 @@ final class InfoViewController: UIViewController {
     
     private func setupNavBar() {
         let navBar = navigationController?.navigationBar
-        navBar?.barTintColor = UIColor(named: Constants.Colors.screenColor)
+        navBar?.barTintColor = R.color.screenColor()
     }
     
     private func loadImage(_ completion: @escaping (UIImage) -> Void) {
@@ -138,7 +138,8 @@ final class InfoViewController: UIViewController {
         guard let seasonRange = Range(match.range(at: 1), in: input),
               let episodeRange = Range(match.range(at: 2), in: input),
               let season = Int(input[seasonRange]),
-              let episode = Int(input[episodeRange]) else {
+              let episode = Int(input[episodeRange])
+        else {
             return nil
         }
         
@@ -149,11 +150,11 @@ final class InfoViewController: UIViewController {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension InfoViewController: UITableViewDataSource {
     
-    enum TableSection: Int, CaseIterable, CustomStringConvertible {
+    enum TableSection: Int, CaseIterable {
         case characterInfoSection
         case infoSection
         case originSection
@@ -173,6 +174,11 @@ extension InfoViewController: UITableViewDataSource {
         }
     }
     
+    enum EpisodeInfo: Int {
+        case episodeValue
+        case seasonValue
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let section = TableSection(rawValue: section) else {
@@ -183,7 +189,7 @@ extension InfoViewController: UITableViewDataSource {
         case .characterInfoSection, .infoSection, .originSection:
             return 1
         case .episodeSection:
-            return results?.episode.count ?? 0
+            return results?.episode.count ?? .zero
         }
     }
     
@@ -231,8 +237,9 @@ extension InfoViewController: UITableViewDataSource {
                 let episodeName = episode.name
                 
                 if let episodeInfo = getEpisodeInfo(episode.episode) {
-                    let episodeValue = episodeInfo[0]
-                    let seasonValue = episodeInfo[1]
+                    
+                    let episodeValue = episodeInfo[EpisodeInfo.episodeValue.rawValue]
+                    let seasonValue = episodeInfo[EpisodeInfo.seasonValue.rawValue]
                     let episodeDate = episode.airDate
                     
                     cell.fill(episodeName: episodeName, episodeValue: episodeValue, seasonValue: seasonValue, episodeDate: episodeDate)
@@ -244,7 +251,7 @@ extension InfoViewController: UITableViewDataSource {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension InfoViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -10,41 +10,50 @@ import SnapKit
 
 final class EpisodesTableViewCell: UITableViewCell {
     
-    //MARK: - Properties
+    // MARK: - Constants
+    
+    enum LocalConstants {
+        static let episodeFontSize: CGFloat = 13
+        static let dateFontSize: CGFloat = 12
+        static let episodeString = "Episode"
+        static let seasonString = "Season"
+    }
+    
+    // MARK: - Subviews
     
     private lazy var vInner: UIView = {
         let view = UIView()
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 16
-        view.backgroundColor = UIColor(named: Constants.Colors.cardColor)
+        view.layer.cornerRadius = CornerRadius.medium
+        view.backgroundColor = R.color.cardColor()
         return view
     }()
     
     private lazy var lblEpisodeName: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = .boldSystemFont(ofSize: 13)
+        lbl.font = .boldSystemFont(ofSize: LocalConstants.episodeFontSize)
         lbl.textAlignment = .center
         return lbl
     }()
     
     private lazy var lblEpisodeInfo: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(named: Constants.Colors.greenText)
-        lbl.font = .boldSystemFont(ofSize: 13)
+        lbl.textColor = R.color.greenTextColor()
+        lbl.font = .boldSystemFont(ofSize: LocalConstants.episodeFontSize)
         lbl.textAlignment = .center
         return lbl
     }()
     
     private lazy var lblDate: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = UIColor(named: Constants.Colors.greyNormalText)
-        lbl.font = .boldSystemFont(ofSize: 12)
+        lbl.textColor = R.color.greyNormalTextColor()
+        lbl.font = .boldSystemFont(ofSize: LocalConstants.dateFontSize)
         lbl.textAlignment = .center
         return lbl
     }()
     
-    //MARK: - Initializers
+    // MARK: - Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -56,10 +65,10 @@ final class EpisodesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     private func setupUI() {
-        contentView.backgroundColor = UIColor(named: Constants.Colors.screenColor)
+        contentView.backgroundColor = R.color.screenColor()
         contentView.addSubviews(vInner,
                                 lblEpisodeName,
                                 lblEpisodeInfo,
@@ -68,32 +77,32 @@ final class EpisodesTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         vInner.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(Paddings.small)
+            $0.horizontalEdges.equalToSuperview().inset(Paddings.large)
+            $0.bottom.equalToSuperview().inset(Paddings.large)
         }
         
         lblEpisodeName.snp.makeConstraints {
-            $0.top.equalTo(vInner).inset(16)
-            $0.leading.equalTo(vInner).inset(15.25)
+            $0.top.equalTo(vInner).inset(Paddings.medium)
+            $0.leading.equalTo(vInner).inset(Paddings.medium)
         }
         
         lblEpisodeInfo.snp.makeConstraints {
-            $0.top.equalTo(lblEpisodeName).inset(25)
-            $0.leading.equalTo(vInner).inset(15.25)
-            $0.bottom.equalTo(vInner).inset(16)
+            $0.top.equalTo(lblEpisodeName).inset(Paddings.large)
+            $0.leading.equalTo(vInner).inset(Paddings.medium)
+            $0.bottom.equalTo(vInner).inset(Paddings.medium)
         }
         
         lblDate.snp.makeConstraints {
-            $0.top.equalTo(lblEpisodeName).inset(25)
-            $0.trailing.equalTo(vInner).inset(16)
-            $0.bottom.equalTo(vInner).inset(16)
+            $0.top.equalTo(lblEpisodeName).inset(Paddings.large)
+            $0.trailing.equalTo(vInner).inset(Paddings.medium)
+            $0.bottom.equalTo(vInner).inset(Paddings.medium)
         }
     }
     
     func fill(episodeName: String, episodeValue: String, seasonValue: String, episodeDate: String) {
         lblEpisodeName.text = episodeName
-        lblEpisodeInfo.text = "Episode \(episodeValue), Season \(seasonValue)"
+        lblEpisodeInfo.text = "\(LocalConstants.episodeString) \(episodeValue), \(LocalConstants.seasonString) \(seasonValue)"
         lblDate.text = episodeDate
     }
 }

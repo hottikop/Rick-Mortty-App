@@ -16,6 +16,7 @@
 		503834912B0BDA4B00B6841F /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503834902B0BDA4B00B6841F /* InfoTableViewCell.swift */; };
 		503A9B7B2B19E4F200174DDF /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503A9B7A2B19E4F200174DDF /* R.generated.swift */; };
 		503A9B7E2B19E53C00174DDF /* Manifest.lock in Resources */ = {isa = PBXBuildFile; fileRef = 503A9B7D2B19E53C00174DDF /* Manifest.lock */; };
+		503A9B802B19F1AE00174DDF /* Manifest.lock in Sources */ = {isa = PBXBuildFile; fileRef = 503A9B7D2B19E53C00174DDF /* Manifest.lock */; };
 		507210B62B0C8A5700F1CCDC /* EpisodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507210B52B0C8A5700F1CCDC /* EpisodesTableViewCell.swift */; };
 		507210BE2B0DF3F900F1CCDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 507210BD2B0DF3F900F1CCDC /* Assets.xcassets */; };
 		507210C02B0E184900F1CCDC /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507210BF2B0E184900F1CCDC /* UIView + Extensions.swift */; };
@@ -126,18 +127,11 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		5008943D2B04AD7F00EA91D9 /* Constants */ = {
+		5008943D2B04AD7F00EA91D9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				5008943E2B04AD9200EA91D9 /* Constants.swift */,
 				5084D1A32B0F645400A1C39A /* DesignSystem.swift */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		503A9B7F2B19E6F900174DDF /* Resources */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -147,9 +141,9 @@
 			children = (
 				503A9B7D2B19E53C00174DDF /* Manifest.lock */,
 				50DF38272A8DF3950046F019 /* Rick&Mortty App */,
-				50DF38262A8DF3950046F019 /* Products */,
-				02C929629F5255C2E1ABA417 /* Pods */,
 				CACB9C0819C95CAEDDCD416E /* Frameworks */,
+				02C929629F5255C2E1ABA417 /* Pods */,
+				50DF38262A8DF3950046F019 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,15 +158,14 @@
 		50DF38272A8DF3950046F019 /* Rick&Mortty App */ = {
 			isa = PBXGroup;
 			children = (
-				503A9B7F2B19E6F900174DDF /* Resources */,
-				503A9B7A2B19E4F200174DDF /* R.generated.swift */,
 				50DF383D2A8DF5D90046F019 /* Models */,
 				50FD736A2A950AC500B1E1E6 /* Views */,
 				50DF383C2A8DF4FE0046F019 /* Controllers */,
 				5008943A2B04ACC600EA91D9 /* Extensions */,
-				5008943D2B04AD7F00EA91D9 /* Constants */,
+				5008943D2B04AD7F00EA91D9 /* Resources */,
 				50DF38282A8DF3950046F019 /* AppDelegate.swift */,
 				50DF382A2A8DF3950046F019 /* SceneDelegate.swift */,
+				503A9B7A2B19E4F200174DDF /* R.generated.swift */,
 				50DF38332A8DF3950046F019 /* LaunchScreen.storyboard */,
 				50DF38362A8DF3950046F019 /* Info.plist */,
 				507210BD2B0DF3F900F1CCDC /* Assets.xcassets */,
@@ -353,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				503A9B802B19F1AE00174DDF /* Manifest.lock in Sources */,
 				5084AA8A2B0949F0001E090A /* UITableViewCell + Extension.swift in Sources */,
 				503A9B7B2B19E4F200174DDF /* R.generated.swift in Sources */,
 				50DF382D2A8DF3950046F019 /* PreviewViewController.swift in Sources */,

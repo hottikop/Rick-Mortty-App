@@ -7,11 +7,11 @@
 
 import Foundation
 
-//MARK: - Endpoint
+// MARK: - Endpoint
 
 struct Endpoint {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     var scheme: String = Constants.Network.scheme
     var host: String = Constants.Network.host
@@ -30,7 +30,7 @@ struct Endpoint {
         return url
     }
     
-    //MARK: - Initializer
+    // MARK: - Initializer
 
     init(path: String = Constants.Network.path, queryItems: [URLQueryItem] = []) {
         self.path = path

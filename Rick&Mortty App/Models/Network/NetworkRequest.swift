@@ -13,7 +13,7 @@ protocol NetworkRequestProtocol {
 
 final class NetworkRequest: NetworkRequestProtocol {
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     func getData(path: String = Constants.Network.path, queryItems: [URLQueryItem] = [],
                  completionHandler: @escaping (Result<Data, NetworkError>) -> Void) {

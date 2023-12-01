@@ -9,17 +9,17 @@ import UIKit
 
 final class CharactersService {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     private var networkDataFetch: NetworkDataFetch
     
-    //MARK: - Initializer
+    // MARK: - Initializer
     
     init(networkDataFetch: NetworkDataFetch = NetworkDataFetch()) {
         self.networkDataFetch = networkDataFetch
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     func loadCharacter(currentPage: Int, completion: @escaping (CharactersModel) -> Void) {
         

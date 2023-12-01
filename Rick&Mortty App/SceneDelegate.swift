@@ -16,14 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       
         window = UIWindow(windowScene: windowScene)
         
-        UINavigationBar.appearance().barTintColor = UIColor(named: Constants.Colors.screenColor)
+        UINavigationBar.appearance().barTintColor = R.color.screenColor()
         
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
         let navController = UINavigationController(rootViewController: PreviewViewController())
-        navController.navigationBar.backgroundColor = UIColor(named: Constants.Colors.screenColor)
+        navController.navigationBar.backgroundColor = R.color.screenColor()
         navController.navigationBar.tintColor = .white
         
         window?.rootViewController = navController

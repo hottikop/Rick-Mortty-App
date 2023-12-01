@@ -15,17 +15,17 @@ protocol NetworkDataFetchProtocol {
 
 final class NetworkDataFetch: NetworkDataFetchProtocol{
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     let networkRequest: NetworkRequest
     
-    //MARK: - Initializer
+    // MARK: - Initializer
     
     init(networkRequest: NetworkRequest = NetworkRequest()) {
         self.networkRequest = networkRequest
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     func fetchData<T: Decodable>(path: String = Constants.Network.path, queryItems: [URLQueryItem] = [],
                                  responseType: T.Type,

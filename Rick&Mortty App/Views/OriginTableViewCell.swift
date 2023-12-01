@@ -10,35 +10,43 @@ import SnapKit
 
 final class OriginTableViewCell: UITableViewCell {
     
-    //MARK: - Properties
+    // MARK: - Constants
+    
+    enum LocalConstants {
+        static let planetFontSize: CGFloat = 13
+        static let planetValueFontSize: CGFloat = 17
+        static let planetTitle = "Planet"
+    }
+    
+    // MARK: - Subviews
     
     private lazy var vInner: UIView = {
         let view = UIView()
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 16
-        view.backgroundColor = UIColor(named: Constants.Colors.cardColor)
+        view.layer.cornerRadius = CornerRadius.medium
+        view.backgroundColor = R.color.cardColor()
         return view
     }()
     
     private lazy var vImageInner: UIView = {
         let view = UIView()
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 10
-        view.backgroundColor = UIColor(named: Constants.Colors.blackElementsColor)
+        view.layer.cornerRadius = CornerRadius.small
+        view.backgroundColor = R.color.blackElementsColor()
         return view
     }()
     
     private lazy var vImage: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: Constants.Images.planetImage)
+        img.image = R.image.planetImage()
         return img
     }()
     
     private lazy var lblPlanet: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Planet"
-        lbl.textColor = UIColor(named: Constants.Colors.greenText)
-        lbl.font = .boldSystemFont(ofSize: 13)
+        lbl.text = LocalConstants.planetTitle
+        lbl.textColor = R.color.greenTextColor()
+        lbl.font = .boldSystemFont(ofSize: LocalConstants.planetFontSize)
         lbl.textAlignment = .center
         
         return lbl
@@ -47,13 +55,13 @@ final class OriginTableViewCell: UITableViewCell {
     private lazy var lblPlanetValue: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = .boldSystemFont(ofSize: 17)
+        lbl.font = .boldSystemFont(ofSize: LocalConstants.planetValueFontSize)
         lbl.textAlignment = .center
         
         return lbl
     }()
     
-    //MARK: - Initializers
+    // MARK: - Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -65,10 +73,10 @@ final class OriginTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     private func setupUI() {
-        contentView.backgroundColor = UIColor(named: Constants.Colors.screenColor)
+        contentView.backgroundColor = R.color.screenColor()
         contentView.addSubviews(vInner,
                                 vImageInner,
                                 vImage,
@@ -78,28 +86,28 @@ final class OriginTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         vInner.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(Paddings.small)
+            $0.horizontalEdges.equalToSuperview().inset(Paddings.large)
+            $0.bottom.equalToSuperview().inset(Paddings.large)
         }
         
         vImageInner.snp.makeConstraints {
-            $0.top.bottom.equalTo(vInner).inset(8)
-            $0.leading.equalTo(vInner).inset(8)
+            $0.top.bottom.equalTo(vInner).inset(Paddings.small)
+            $0.leading.equalTo(vInner).inset(Paddings.small)
         }
         
         vImage.snp.makeConstraints {
-            $0.edges.equalTo(vImageInner).inset(20)
+            $0.edges.equalTo(vImageInner).inset(Paddings.large)
         }
         
         lblPlanetValue.snp.makeConstraints {
-            $0.top.equalTo(vInner).inset(16)
-            $0.leading.equalTo(vImageInner.snp.trailing).inset(-16)
+            $0.top.equalTo(vInner).inset(Paddings.medium)
+            $0.leading.equalTo(vImageInner.snp.trailing).inset(-Paddings.medium)
         }
         
         lblPlanet.snp.makeConstraints {
-            $0.top.equalTo(lblPlanetValue).inset(8)
-            $0.leading.equalTo(vImageInner.snp.trailing).inset(-16)
+            $0.top.equalTo(lblPlanetValue).inset(Paddings.small)
+            $0.leading.equalTo(vImageInner.snp.trailing).inset(-Paddings.medium)
             $0.bottom.equalTo(vInner)
         }
     }

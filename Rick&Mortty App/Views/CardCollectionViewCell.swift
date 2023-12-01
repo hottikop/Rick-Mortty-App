@@ -3,20 +3,27 @@ import SnapKit
 
 final class CardCollectionViewCell: UICollectionViewCell {
     
-    //MARK: - Properties
+    // MARK: - Constants
+    
+    enum LocalConstants {
+        static let labelFontSize: CGFloat = 17
+        static let imageSize = 140
+    }
+    
+    // MARK: - Subviews
     
     private lazy var vInner: UIView = {
         let view = UIView()
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 16
-        view.backgroundColor = UIColor(named: Constants.Colors.cardColor)
+        view.layer.cornerRadius = CornerRadius.medium
+        view.backgroundColor = R.color.cardColor()
         
         return view
     }()
     
     private lazy var vImage: UIImageView = {
         let img = UIImageView()
-        img.layer.cornerRadius = 10
+        img.layer.cornerRadius = CornerRadius.small
         img.layer.masksToBounds = true
         return img
     }()
@@ -24,12 +31,12 @@ final class CardCollectionViewCell: UICollectionViewCell {
     private lazy var lblName: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = .boldSystemFont(ofSize: 17)
+        lbl.font = .boldSystemFont(ofSize: LocalConstants.labelFontSize)
         lbl.textAlignment = .center
         return lbl
     }()
     
-    //MARK: - Init
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,7 +48,7 @@ final class CardCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     private func setupUI() {
         contentView.addSubviews(vInner,
@@ -55,16 +62,16 @@ final class CardCollectionViewCell: UICollectionViewCell {
         }
 
         vImage.snp.makeConstraints {
-            $0.top.equalTo(vInner.snp.top).inset(8)
+            $0.top.equalTo(vInner.snp.top).inset(Paddings.small)
             $0.centerX.equalTo(vInner)
-            $0.size.equalTo(140)
+            $0.size.equalTo(LocalConstants.imageSize)
         }
 
         lblName.snp.makeConstraints {
-            $0.top.equalTo(vImage.snp.bottom).inset(-16)
+            $0.top.equalTo(vImage.snp.bottom).inset(-Paddings.medium)
             $0.centerX.equalTo(vInner)
             $0.horizontalEdges.equalTo(vInner)
-            $0.bottom.equalTo(vInner).inset(16)
+            $0.bottom.equalTo(vInner).inset(Paddings.medium)
         }
     }
     

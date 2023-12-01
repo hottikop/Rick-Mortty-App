@@ -1,14 +1,14 @@
 import Foundation
 import UIKit
 
-//MARK: - CharactersModel
+// MARK: - CharactersModel
 
 struct CharactersModel: Decodable {
     var info: Info
     var results: [Results]
 }
 
-//MARK: - Info
+// MARK: - Info
 
 struct Info: Decodable {
     var count: Int
@@ -17,7 +17,7 @@ struct Info: Decodable {
     var prev: String?
 }
 
-//MARK: - Results
+// MARK: - Results
 
 struct Results: Decodable {
     var id: Int
@@ -34,14 +34,14 @@ struct Results: Decodable {
     var created: String
 }
 
-//MARK: - Origin
+// MARK: - Origin
 
 struct Origin: Decodable {
     var name: String
     var url: String
 }
 
-//MARK: - Location
+// MARK: - Location
 
 struct Location: Decodable {
     var name: String
