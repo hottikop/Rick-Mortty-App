@@ -33,11 +33,13 @@ final class NetworkDataFetch: NetworkDataFetchProtocol{
         
         networkRequest.getData(path: path, queryItems: queryItems) { result in
             
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             switch result {
             
             case .success(let success):
                 do {
-                    let data = try JSONDecoder().decode(T.self,
+                    let data = try decoder.decode(T.self,
                                                         from: success)
                     DispatchQueue.main.async {
                         response(data, nil)

@@ -41,7 +41,7 @@ final class PreviewViewController: UIViewController {
     private var currentPage = 0
     private var isLoading = false
     
-    // MARK: - Initializers
+    // MARK: - Init
     
     init(charactersServise: CharactersService = CharactersService()) {
         self.charactersService = charactersServise
@@ -93,12 +93,12 @@ final class PreviewViewController: UIViewController {
         currentPage += 1
         
         charactersService.loadCharacter(currentPage: currentPage) { character in
-
+            
+            let indexPaths = [IndexPath(item: self.characters.count, section: 0)]
             self.characters.append(character)
-            self.cvCharacterList.reloadData()
+            self.cvCharacterList.insertItems(at: indexPaths)
             self.isLoading = false
         }
-        
     }
     
     private func loadImage(indexPath: IndexPath, completion: @escaping (UIImage) -> Void) {
@@ -106,7 +106,7 @@ final class PreviewViewController: UIViewController {
         let id = characters[indexPath.row / Constants.Values.charactersCount].results[indexPath.row % Constants.Values.charactersCount].id
         
         charactersService.loadImage(characters: characters, indexPath: indexPath, id: id) { newImage in
-        
+            
             completion(newImage)
         }
     }
@@ -153,7 +153,7 @@ extension PreviewViewController: UICollectionViewDelegate {
         let result = characters[indexPath.item / Constants.Values.charactersCount]
             .results[indexPath.item % Constants.Values.charactersCount]
         
-        let vc = InfoViewController(result)
-        navigationController?.pushViewController(vc, animated: true)
+        let coordinator = Coordinator(navigationController: navigationController, result: result)
+        coordinator.start()
     }
 }
