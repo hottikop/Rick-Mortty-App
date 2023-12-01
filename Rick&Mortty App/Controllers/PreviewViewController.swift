@@ -153,7 +153,7 @@ extension PreviewViewController: UICollectionViewDelegate {
         let result = characters[indexPath.item / Constants.Values.charactersCount]
             .results[indexPath.item % Constants.Values.charactersCount]
         
-        let coordinator = Coordinator(navigationController: navigationController, result: result)
+        let coordinator = Coordinator(navigationController: navigationController, data: result)
         coordinator.start()
     }
 }

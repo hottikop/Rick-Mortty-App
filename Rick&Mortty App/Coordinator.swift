@@ -7,24 +7,35 @@
 
 import UIKit
 
-final class Coordinator {
+final class Coordinator<T> {
     
     // MARK: - Properties
     
     private weak var navigationController: UINavigationController?
-    private let result: Results
-    
+    private let data: T
+
     // MARK: - Init
     
-    init(navigationController: UINavigationController?, result: Results) {
-          self.navigationController = navigationController
-          self.result = result
-      }
+    init(navigationController: UINavigationController?, data: T) {
+        self.navigationController = navigationController
+        self.data = data
+    }
     
     // MARK: - Methods
-    
+
     func start() {
-        let infoViewController = InfoViewController(result)
-        navigationController?.pushViewController(infoViewController, animated: true)
+        if let infoViewController = createInfoViewController() {
+            navigationController?.pushViewController(infoViewController, animated: true)
+        } else {
+            print("Unsupported type")
+        }
+    }
+
+    private func createInfoViewController() -> UIViewController? {
+        guard let result = data as? Results else {
+            return nil
+        }
+        
+        return InfoViewController(result)
     }
 }
