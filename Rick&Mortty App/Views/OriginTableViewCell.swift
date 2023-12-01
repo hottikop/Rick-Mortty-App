@@ -73,7 +73,13 @@ final class OriginTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - Public Methods
+    
+    func fill(origin: String?) {
+        lblPlanetValue.text = origin
+    }
+    
+    // MARK: - Private Methods
     
     private func setupUI() {
         contentView.backgroundColor = R.color.screenColor()
@@ -110,9 +116,5 @@ final class OriginTableViewCell: UITableViewCell {
             $0.leading.equalTo(vImageInner.snp.trailing).inset(-Paddings.medium)
             $0.bottom.equalTo(vInner)
         }
-    }
-    
-    func fill(origin: String?) {
-        lblPlanetValue.text = origin
     }
 }

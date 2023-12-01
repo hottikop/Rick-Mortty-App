@@ -48,7 +48,17 @@ final class CardCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - Public Methods
+    
+    func fill(name: String?) {
+        lblName.text = name
+    }
+    
+    func fillImage(image: UIImage?) {
+        vImage.image = image
+    }
+    
+    // MARK: - Private Methods
     
     private func setupUI() {
         contentView.addSubviews(vInner,
@@ -73,13 +83,5 @@ final class CardCollectionViewCell: UICollectionViewCell {
             $0.horizontalEdges.equalTo(vInner)
             $0.bottom.equalTo(vInner).inset(Paddings.medium)
         }
-    }
-    
-    func fill(name: String?) {
-        lblName.text = name
-    }
-    
-    func fillImage(image: UIImage?) {
-        vImage.image = image
     }
 }

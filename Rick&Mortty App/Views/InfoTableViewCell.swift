@@ -99,7 +99,15 @@ final class InfoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - Public Methods
+    
+    func fill(species: String?, type: String?, gender: String?) {
+        lblSpeciesValue.text = species
+        lblTypeValue.text = type
+        lblGenderValue.text = gender
+    }
+    
+    // MARK: - Private Methods
     
     private func setupUI() {
         contentView.backgroundColor = R.color.screenColor()
@@ -150,11 +158,5 @@ final class InfoTableViewCell: UITableViewCell {
             $0.trailing.equalTo(vInner.snp.trailing).offset(-Paddings.medium)
             $0.bottom.equalTo(vInner).inset(Paddings.medium)
         }
-    }
-    
-    func fill(species: String?, type: String?, gender: String?) {
-        lblSpeciesValue.text = species
-        lblTypeValue.text = type
-        lblGenderValue.text = gender
     }
 }

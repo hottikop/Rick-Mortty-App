@@ -113,32 +113,6 @@ final class InfoViewController: UIViewController {
             self?.tblCharacterInfo.reloadData()
         }
     }
-    
-    
-    private func getEpisodeInfo(_ input: String) -> [String]? {
-        let regexPattern = #"S(\d+)E(\d+)"#
-        
-        guard let regex = try? NSRegularExpression(pattern: regexPattern) else {
-            return nil
-        }
-        
-        guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count)) else {
-            return nil
-        }
-        
-        guard let seasonRange = Range(match.range(at: 1), in: input),
-              let episodeRange = Range(match.range(at: 2), in: input),
-              let season = Int(input[seasonRange]),
-              let episode = Int(input[episodeRange])
-        else {
-            return nil
-        }
-        
-        let seasonNumber = String(season)
-        let episodeNumber = String(episode)
-        
-        return [episodeNumber, seasonNumber]
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -227,7 +201,7 @@ extension InfoViewController: UITableViewDataSource {
                 
                 let episodeName = episode.name
                 
-                if let episodeInfo = getEpisodeInfo(episode.episode) {
+                if let episodeInfo = charactersService.getEpisodeInfo(episode.episode) {
                     
                     let episodeValue = episodeInfo[EpisodeInfo.episodeValue.rawValue]
                     let seasonValue = episodeInfo[EpisodeInfo.seasonValue.rawValue]

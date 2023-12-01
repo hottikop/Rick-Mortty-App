@@ -65,7 +65,15 @@ final class EpisodesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - Public Methods
+    
+    func fill(episodeName: String, episodeValue: String, seasonValue: String, episodeDate: String) {
+        lblEpisodeName.text = episodeName
+        lblEpisodeInfo.text = "\(LocalConstants.episodeString) \(episodeValue), \(LocalConstants.seasonString) \(seasonValue)"
+        lblDate.text = episodeDate
+    }
+    
+    // MARK: - Private Methods
     
     private func setupUI() {
         contentView.backgroundColor = R.color.screenColor()
@@ -98,11 +106,5 @@ final class EpisodesTableViewCell: UITableViewCell {
             $0.trailing.equalTo(vInner).inset(Paddings.medium)
             $0.bottom.equalTo(vInner).inset(Paddings.medium)
         }
-    }
-    
-    func fill(episodeName: String, episodeValue: String, seasonValue: String, episodeDate: String) {
-        lblEpisodeName.text = episodeName
-        lblEpisodeInfo.text = "\(LocalConstants.episodeString) \(episodeValue), \(LocalConstants.seasonString) \(seasonValue)"
-        lblDate.text = episodeDate
     }
 }

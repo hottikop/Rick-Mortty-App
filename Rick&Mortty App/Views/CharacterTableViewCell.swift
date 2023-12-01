@@ -57,7 +57,15 @@ final class CharacterTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - Public Methods
+    
+    func fill(image: UIImage?, name: String?, status: String?) {
+        vImage.image = image
+        lblName.text = name
+        lblStatus.text = status
+    }
+    
+    // MARK: - Private Methods
     
     private func setupUI() {
         contentView.backgroundColor = R.color.screenColor()
@@ -83,11 +91,5 @@ final class CharacterTableViewCell: UITableViewCell {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
-    }
-    
-    func fill(image: UIImage?, name: String?, status: String?) {
-        vImage.image = image
-        lblName.text = name
-        lblStatus.text = status
     }
 }
