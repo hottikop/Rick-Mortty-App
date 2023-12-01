@@ -7,7 +7,17 @@
 
 import UIKit
 
-final class CharactersService {
+protocol CharactersServiceProtocol {
+    func loadCharacter(currentPage: Int, completion: @escaping (CharactersModel) -> Void)
+    
+    func loadImage(characters: [CharactersModel]?, indexPath: IndexPath?, id: Int, completion: @escaping (UIImage) -> Void)
+    
+    func loadEpisode(fromEpisodeURL episodeURL: String, completion: @escaping (EpisodeModel?, NetworkError?) -> Void)
+    
+    func getEpisodeInfo(_ input: String) -> [String]?
+}
+
+final class CharactersService: CharactersServiceProtocol {
     
     // MARK: - Properties
     

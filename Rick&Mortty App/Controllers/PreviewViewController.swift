@@ -36,7 +36,7 @@ final class PreviewViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var charactersService: CharactersService
+    private var charactersService: CharactersServiceProtocol
     private var characters: [CharactersModel] = []
     private var currentPage = 0
     private var isLoading = false

@@ -11,7 +11,7 @@ final class InfoViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var charactersService: CharactersService
+    private var charactersService: CharactersServiceProtocol
     private var results: Results?
     private var image: UIImage?
     private var episodes: [EpisodeModel] = []

@@ -7,9 +7,13 @@
 
 import Foundation
 
+// MARK: - NetworkRequestProtocol
+
 protocol NetworkRequestProtocol {
     func getData(path: String, queryItems: [URLQueryItem], completionHandler:  @escaping (Result<Data, NetworkError>) -> Void)
 }
+
+// MARK: - NetworkRequest
 
 final class NetworkRequest: NetworkRequestProtocol {
     
