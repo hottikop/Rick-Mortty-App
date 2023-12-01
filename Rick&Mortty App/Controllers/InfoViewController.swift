@@ -29,7 +29,7 @@ final class InfoViewController: UIViewController {
         return tbl
     }()
     
-    // MARK: - Initializers
+    // MARK: - Init
     
     init(_ results: Results,
          charactersService: CharactersService = CharactersService()) {
@@ -52,11 +52,6 @@ final class InfoViewController: UIViewController {
         loadEpisodes()
         setupUI()
         setupConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tblCharacterInfo.reloadData()
     }
     
     // MARK: - Methods
@@ -84,10 +79,6 @@ final class InfoViewController: UIViewController {
         charactersService.loadImage(characters: nil, indexPath: nil, id: id) { newImage in
             let image = newImage
             completion(image)
-            
-            DispatchQueue.main.async {
-                self.tblCharacterInfo.reloadData()
-            }
         }
     }
     
