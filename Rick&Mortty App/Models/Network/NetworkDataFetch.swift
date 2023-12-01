@@ -7,11 +7,15 @@
 
 import UIKit
 
+// MARK: - NetworkDataFetchProtocol
+
 protocol NetworkDataFetchProtocol {
     func fetchData<T: Decodable>(path: String, queryItems: [URLQueryItem], responseType: T.Type, response: @escaping (T?, NetworkError?) -> Void)
     
     func fetchImage(path: String, completion: @escaping (UIImage?, NetworkError?) -> Void)
 }
+
+// MARK: - NetworkDataFetch
 
 final class NetworkDataFetch: NetworkDataFetchProtocol{
     
