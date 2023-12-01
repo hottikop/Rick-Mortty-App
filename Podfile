@@ -1,5 +1,4 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '16.0'
@@ -12,5 +11,5 @@ target 'Rick&Mortty App' do
 
   # Pods for Rick&Mortty App
   pod 'SnapKit', '~> 5.6.0'
-
+  pod 'R.swift'
 end
