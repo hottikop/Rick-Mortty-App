@@ -122,13 +122,13 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		5008943D2B04AD7F00EA91D9 /* Constants + Assets */ = {
+		5008943D2B04AD7F00EA91D9 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
 				5008943E2B04AD9200EA91D9 /* Constants.swift */,
 				5084D1A32B0F645400A1C39A /* DesignSystem.swift */,
 			);
-			path = "Constants + Assets";
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		50DF381C2A8DF3940046F019 = {
@@ -156,7 +156,7 @@
 				50FD736A2A950AC500B1E1E6 /* Views */,
 				50DF383C2A8DF4FE0046F019 /* Controllers */,
 				5008943A2B04ACC600EA91D9 /* Extensions */,
-				5008943D2B04AD7F00EA91D9 /* Constants + Assets */,
+				5008943D2B04AD7F00EA91D9 /* Constants */,
 				50DF38282A8DF3950046F019 /* AppDelegate.swift */,
 				50DF382A2A8DF3950046F019 /* SceneDelegate.swift */,
 				50DF38332A8DF3950046F019 /* LaunchScreen.storyboard */,
